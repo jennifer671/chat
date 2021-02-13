@@ -332,13 +332,13 @@ function startHost() {
 function main() {
   document.getElementById("urlbox").style.visibility = "visible";
   if (window.location.search !== "") {
-    startGuest();
-   if (connections.length > 2) {
+    if (connections.length > 2) {
       connettiGuestToGuest();
+    } else {
+      startGuest();
     }
   } else {
     startHost();
-    
 
     // manca if per vedere se ci sono piu' guest.
   }
