@@ -213,8 +213,8 @@ function startGuest() {
 }
 
 function connettiGuestToGuest() {
-  var peer = connections.slice(1);
-  var id1 = remotePeerIds(1);
+  var peer = connections.slice(2);
+  var id1 = remotePeerIds(2);
   // var id2 = remotePeerIds(2);
   console.log("inizializza la connessione tra i guest");
   peer.on("error", function (err) {
