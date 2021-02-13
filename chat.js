@@ -333,7 +333,7 @@ function main() {
   document.getElementById("urlbox").style.visibility = "visible";
   if (window.location.search !== "") {
     startGuest();
-   if (connections.length > 1) {
+   if (connections.length > 2) {
       connettiGuestToGuest();
     }
   } else {
