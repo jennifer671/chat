@@ -1,0 +1,76 @@
+html, body { height: 100% }
+
+body {
+    position: fixed;
+    overflow: hidden;
+    overscroll-behavior: contain;
+    width: 100%;
+    top: 0;
+    margin: 0;
+    background: rgb(255,198,22);
+    background: radial-gradient(circle, rgba(255,198,22,1) 0%, rgba(209,190,118,1) 53%, rgba(137,220,255,1) 100%);
+    font-family: Arial;
+    font-size: 15px;
+}
+
+#urlbox {
+    margin: auto;
+    background: #fff;
+    padding: 5px;
+    text-align: center;
+    line-height: 155%;
+    visibility: hidden;
+}
+
+#urlTextBox {
+    width: 400px;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+}
+
+
+.videoFrame {
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    background: #fff;
+    border-radius: 7px;
+    border: 5px solid #fff;
+    width: 44%;
+    margin: 2%;
+}
+
+.videoFrame video {
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 2px;
+    margin-bottom: -2px;
+}
+
+#videobox {
+    text-align: center;
+}
+
+.videoFrame .warning {
+    visibility: hidden;
+    position: absolute;
+    color: #e00;
+    right: 2px;
+    top: -4px;
+    font-weight: bold;
+    animation: blinker 0.5s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+div#welcome {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    top: 30%;
+}
