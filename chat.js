@@ -275,7 +275,7 @@ function startHost() {
   //Apro connessione. stampa peer id dell host
   peer.on("open", function (id) {
     console.log("My peer ID is: " + id);
-    const url = "https://jennifer671.github.io/chat/?" + id;
+    const url = "https://jennifer671.github.io/chat?" + id;
     document.getElementById(
       "urlbox"
     ).innerHTML = `Tu sei l host. Un guest puo connettersi a questo url:<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
