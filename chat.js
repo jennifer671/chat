@@ -271,7 +271,8 @@ function startHost() {
   var peer = new Peer(id, peerConfig);
   remotePeerIds.push(id);
   connections.push(peer);
-  console.log("connessione registrata");
+  onsole.log(remotePeerIds[0]);
+  console.log("stampa il peerid salvato");
   //Apro connessione. stampa peer id dell host
   peer.on("open", function (id) {
     console.log("My peer ID is: " + id);
