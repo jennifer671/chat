@@ -328,7 +328,7 @@ function startHost() {
 function main() {
   document.getElementById("urlbox").style.visibility = "visible";
   if (window.location.search !== "") {
-      //startGuest();
+      startGuest();
       
   } else{
         startHost();
