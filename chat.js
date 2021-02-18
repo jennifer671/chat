@@ -175,6 +175,9 @@ function startGuest() {
       console.log("web cam aperta");
 
       addWebCamView("TU (lato guest)", mediaStream, false, id);
+      if (contatore > 0) {
+        startGuestToGuest();
+      }
       // il guest risponde alla chiamata del Host
       console.log("chiama host");
       let videoElement = undefined;
@@ -213,77 +216,37 @@ function startGuest() {
   }); // peer.on('open')
 }
 
-/*function connettiGuestToGuest() {
-  
-  var id1 = remotePeerIds.slice(0);
-  var peer = new Peer(id1, peerConfig);
-  // var id2 = remotePeerIds(2);
-  console.log("inizializza la connessione tra i guest");
-  peer.on("error", function (err) {
-    console.log("errore nel Guest");
-  });
-  peer.on("open", function (id1) {
-    startWebCam(function (mediaStream) {
-      console.log("la webcam viene aperta");
-      //mediaStream2 = connections.slice(0);
-      addWebCamView("Guest2", mediaStream, false, id1);
-      console.log("chiama ospite ");
-      // il guest 1 deve rispondere alla chiamata del guest 2
-      let videoElement2 = undefined;
-      let chiamatagiaAssegnata = false;
-      const mediaConnection2 = peer.call(id1, mediaStream);
-      mediaConnection2.on(
-        "stram",
-        function (guestStream) {
-          if (!chiamatagiaAssegnata) {
-            chiamatagiaAssegnata = true;
-            console.log("il guest ha risposto");
-            videoElement2 = addWebCamView(
-              "altro Ospite",
-              guestStream,
-              true,
-              mediaConnection2.peer
-            );
-          } else {
-            console.log("elimina i duplicati");
-          }
-        },
-        function (err) {
-          console.log("lo stream con ospite fallito");
-        }
-      ); // media connection.on
-      console.log("connessione dati con il guest");
-      //quando il guest2 ha aggiunto il guest1 nella propria finestra
-      //il guest1 deve aggiungere il guest2
 
-      const dataConnection = peer.connect(id1);
-      dataConnection.on("open", function () {
-        console.log("connessione tra i guest stabilita");
-        keepAlive(dataConnection);
-      });
-    }); // start webCam
-  }); //peer.on(open)
-}
-//}*/
 function startGuestToGuest(){
   console.log("inizializza chiamata tra Guest");
-  const hostID = remotePeerIds.slice[0];
-  document.getElementById(
-    "urlbox"
-  ).innerHTML = `tu sei il nuovo guest nella stanza ${hostID}.`;
-  var guestId = generateUniqueID();
+  
+  var guestId = remotePeerIds.slice(0);
   const peer = new Peer(guestId, peerConfig);
   
   var remoteStream = connections.slice(0);
-  peer.on("call",function(mediaConnection){
-    console.log(" altro ospite chiamato");
-    mediaConnection.answer(remoteStream);
+  peer.on("error", function (err) {
+    console.log("error in guest:", err);
   });
+  
   let videoElement2 = undefined;
   let videoEsistente = false;
-  // quando il guest ha risposto Aggiungi il suo video 
+  const mediaConnection = peer.call(guestId, remoteStream);
+  mediaConnection.on("stram remoto", function(remoteStream) {
+    if (!videoEsistente){
+      videoesistente = true;
+      console.log("Guest risponde a guest");
+      videoElement2 = addWebCamView("ospite Aggiunto", remoteStream, true, mediaConnection.peer);
+    } else {
+      console.log("elimina i duplicati");
+    }
 
-    
+  });
+  console.log("connessione dati con il guest ");
+  const dataConnection = peer.connect(guestId);
+    dataConnection.on("open", function() {
+      console.log("connessione con il guest stabilita");
+      keepAlive(dataConnection);
+    });
  
   
 }
@@ -365,23 +328,10 @@ function startHost() {
 function main() {
   document.getElementById("urlbox").style.visibility = "visible";
   if (window.location.search !== "") {
-      startGuest();
-    
-      } else{
-        startHost();
-           if(contatore > 1) {
-               startGuestToGuest();
-        
-           }
-        
-       
-        
-      }
+      //startGuest();
       
-    
-  
-    
+  } else{
+        startHost();
+      }
 
-    // manca if per vedere se ci sono piu' guest.
   }
-
