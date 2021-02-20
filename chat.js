@@ -216,7 +216,7 @@ function startGuest() {
 }
 
 
-function startGuestToGuest(peer){
+function startGuestToGuest(){
   console.log("inizializza chiamata tra Guest");
   
   var guestId = remotePeerIdsGuest.slice(0);
@@ -312,7 +312,7 @@ function startHost() {
                 console.log("Elimina il duplicato");
               }
               if(contatore > 1){
-                startGuestToGuest(peer);
+                startGuestToGuest();
               }
             },
             function (err) {
