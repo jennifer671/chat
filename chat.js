@@ -163,8 +163,6 @@ function startGuest() {
   ).innerHTML = `tu sei il guest nella stanza ${hostID}.`;
   var guestId = generateUniqueID();
   const peer = new Peer(guestId, peerConfig);
-  
-  
 
   peer.on("error", function (err) {
     console.log("error in guest:", err);
@@ -175,9 +173,7 @@ function startGuest() {
       console.log("web cam aperta");
 
       addWebCamView("TU (lato guest)", mediaStream, false, id);
-      if (contatore > 0) {
-        startGuestToGuest();
-      }
+      
       // il guest risponde alla chiamata del Host
       console.log("chiama host");
       let videoElement = undefined;
@@ -217,16 +213,17 @@ function startGuest() {
 }
 
 
-function startGuestToGuest(){
+function startGuestToGuest(peer){
   console.log("inizializza chiamata tra Guest");
   
-  var guestId = remotePeerIds.slice(0);
-  const peer = new Peer(guestId, peerConfig);
+  var guestId = document.getElementById("id");
+  //const peer = new Peer(guestId, peerConfig);
   
   var remoteStream = connections.slice(0);
   peer.on("error", function (err) {
     console.log("error in guest:", err);
   });
+  
   
   let videoElement2 = undefined;
   let videoEsistente = false;
@@ -311,6 +308,9 @@ function startHost() {
               } else {
                 console.log("Elimina il duplicato");
               }
+              if(contatore > 1){
+                startGuestToGuest(peer);
+              }
             },
             function (err) {
               console.log("Stream con guest fallito con err: " + err);
@@ -329,9 +329,9 @@ function main() {
   document.getElementById("urlbox").style.visibility = "visible";
   if (window.location.search !== "") {
       startGuest();
-      
   } else{
         startHost();
       }
 
   }
+
