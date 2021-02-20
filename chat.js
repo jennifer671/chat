@@ -219,8 +219,8 @@ function startGuest() {
 function startGuestToGuest(peer){
   console.log("inizializza chiamata tra Guest");
   
-  var guestId = document.getElementById("id");
-  //const peer = new Peer(guestId, peerConfig);
+  var guestId = remotePeerIdsGuest.slice(0);
+  const peer = new Peer(guestId, peerConfig);
   
   var remoteStream = connections.slice(0);
   peer.on("error", function (err) {
