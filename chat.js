@@ -162,6 +162,8 @@ function startGuest() {
     "urlbox"
   ).innerHTML = `tu sei il guest nella stanza ${hostID}.`;
   var guestId = generateUniqueID();
+  remotePeerIdsGuest.push(guestId);
+  console.log("id del guest : " + remotePeerIdsGuest[0]);
   const peer = new Peer(guestId, peerConfig);
 
   peer.on("error", function (err) {
