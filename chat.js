@@ -19,6 +19,7 @@ const KEEP_ALIVE_MESSAGE = "KEEP_ALIVE";
 const MISSABLE_INTERVALS = 10;
 
 var remotePeerIds = []; // Crea la variabile dei peers remoti.
+var remotePeerIdsGuest = [];
 var connections = []; // registrare lo strem delle persone connesse.
 var contatore = 0; // contatore globale per contare le persone connesse.
 
