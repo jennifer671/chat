@@ -19,7 +19,7 @@ const KEEP_ALIVE_MESSAGE = "KEEP_ALIVE";
 const MISSABLE_INTERVALS = 10;
 
 var remotePeerIds = []; // Crea la variabile dei peers remoti.
-var remotePeerIdsGuest = [];
+var remotePeerIdsGuest = []; // variabili degli id dei guest
 var connections = []; // registrare lo strem delle persone connesse.
 var contatore = 0; // contatore globale per contare le persone connesse.
 
@@ -161,7 +161,7 @@ function startGuest() {
   const hostID = window.location.search.substring(1);
   document.getElementById(
     "urlbox"
-  ).innerHTML = `tu sei il guest nella stanza ${hostID}.`;
+  ).innerHTML = `tu sei il guest nella stanza ${hostID}.`; 
   var guestId = generateUniqueID();
   remotePeerIdsGuest.push(guestId);
   console.log("id del guest : " + remotePeerIdsGuest[0]);
@@ -219,10 +219,10 @@ function startGuest() {
 function startGuestToGuest(){
   console.log("inizializza chiamata tra Guest");
   
-  var guestId = remotePeerIdsGuest.slice(0);
+  var guestId = remotePeerIdsGuest.slice(0); // passo l'id del guest 1
   const peer = new Peer(guestId, peerConfig);
   
-  var remoteStream = connections.slice(0);
+  var remoteStream = connections.slice(0);// prendo lo stream del Guest 1
   peer.on("error", function (err) {
     console.log("error in guest:", err);
   });
@@ -298,10 +298,10 @@ function startHost() {
                 console.log("Video del guest ottenuto.");
                 videoElement = addWebCamView("Ospite",guestStream,true,mediaConnection.peer
                 );
-                connections.push(guestStream);
+                connections.push(guestStream); // salvo lo stream del Guest
                
                 console.log("connessione" + connections[0]);
-                for(var i = 0; i < 8; i++){
+                for(var i = 0; i < 8; i++){ // Creo un ciclo in cui conto il numero di guest che si collegano con L'host
                   if(connections.length > 0){
                     contatore++;
                   }
@@ -312,7 +312,7 @@ function startHost() {
                 console.log("Elimina il duplicato");
               }
               if(contatore > 1){
-                startGuestToGuest();
+                startGuestToGuest(); // inizializzo la chiamata tra i guests
               }
             },
             function (err) {
@@ -337,4 +337,3 @@ function main() {
       }
 
   }
-
