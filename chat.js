@@ -219,10 +219,10 @@ function startGuest() {
 function startGuestToGuest(){
   console.log("inizializza chiamata tra Guest");
   
-  var guestId = remotePeerIdsGuest.slice(0); // passo l'id del guest 1
+   var guestId = remotePeerIdsGuest[0]; // passo l'id del guest 1
   const peer = new Peer(guestId, peerConfig);
-  
-  var remoteStream = connections.slice(0);// prendo lo stream del Guest 1
+
+  var remoteStream = connections[0];// prendo lo stream del Guest 1
   peer.on("error", function (err) {
     console.log("error in guest:", err);
   });
