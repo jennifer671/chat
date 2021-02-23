@@ -226,12 +226,12 @@ function startGuestToGuest(){
   peer.on("error", function (err) {
     console.log("error in guest:", err);
   });
-  peer.on("open", function (id) {
+ /* peer.on("open", function (id) {
     startWebCam(function (mediaStream) {
       console.log("web cam aperta");
       addWebCamView("TU (lato guest)", mediaStream, false, id);
     });
-  });
+  });*/
 
   console.log("chiama Guest");
   
