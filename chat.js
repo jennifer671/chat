@@ -306,6 +306,8 @@ function startHost() {
                 videoElement = addWebCamView("Ospite",guestStream,true,mediaConnection.peer
                 );
                 connections.push(guestStream); // salvo lo stream del Guest
+                remotePeerIdsGuest.push(guestStream.elementID);
+                console.log("connessione" + remotePeerIdsGuest.pop);
                
                 console.log("connessione" + connections[0]);
                 for(var i = 0; i < 8; i++){ // Creo un ciclo in cui conto il numero di guest che si collegano con L'host
