@@ -227,6 +227,14 @@ function startGuestToGuest(){
     console.log("error in guest:", err);
   });
   
+ peer.on ("open", function(guestId){
+    startWebCam(function(mediaStream){
+      console.log("web cam aperta");
+
+      addWebCamView("tu ospite", mediaStream, false, guestId);
+    });
+  });
+  console.log("chiama Guest");
   
   let videoElement2 = undefined;
   let videoEsistente = false;
