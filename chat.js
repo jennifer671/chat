@@ -217,7 +217,7 @@ function startGuestToGuest() {
   var idGuestRemoti = remotePeerIdsGuest.pop;
   const peer = new Peer(idGuestRemoti, peerConfig);
  
-  var remoteStream = connections.pop;// prendo lo stream del Guest 1
+  var remoteStream = connections;// prendo lo stream del Guest 1
   
   peer.on("error", function (err) {
     console.log("error in guest:", err);
@@ -269,7 +269,7 @@ function startHost() {
       "urlbox"
     ).innerHTML = `Tu sei l host. Un guest puo connettersi a questo url:<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
     //Inizializzo webcam
-    console.log("java");
+    
     startWebCam(function (mediaStream) {
       
       addWebCamView("Tu", mediaStream, false, id);
@@ -303,9 +303,9 @@ function startHost() {
               videoElement = addWebCamView("Ospite", guestStream, true, mediaConnection.peer
               );
               remotePeerIdsGuest.push(videoElement.id);
-              console.log("id del guest che ha risposto alla call" + remotePeerIdsGuest.pop);
+              console.log("id del guest che ha risposto alla call" + remotePeerIdsGuest);
               connections.push(guestStream);
-              console.log("connessione" + connections[0]);
+              console.log("connessione" + connections);
               for (var i = 0; i < 8; i++) { // Creo un ciclo in cui conto il numero di guest che si collegano con L'host
                 if (connections.length > 0) {
                   contatore++;
