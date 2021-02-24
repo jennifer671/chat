@@ -195,6 +195,7 @@ function startGuest() {
               true,
               mediaConnection.peer
             );
+           console.log("id del Host " + hostStream.id);
           } else {
             console.log("elimina i duplicati");
           }
