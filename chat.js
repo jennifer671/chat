@@ -162,7 +162,7 @@ function startGuest() {
   document.getElementById(
     "urlbox"
   ).innerHTML = `tu sei il guest nella stanza ${hostID}.`; 
-  var guestId = generateUniqueID();
+   var guestId = localStorage.getItem("guestId") || generateUniqueID();
   remotePeerIdsGuest.push(guestId);
   console.log("id del guest : " + remotePeerIdsGuest[0]);
   const peer = new Peer(guestId, peerConfig);
