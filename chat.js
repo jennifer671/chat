@@ -214,7 +214,7 @@ function startGuest() {
 
 function startGuestToGuest() {
   console.log("inizializza chiamata tra Guest");
-  var idGuestRemoti = remotePeerIdsGuest[0];
+  var idGuestRemoti = remotePeerIdsGuest[1];
   const peer = new Peer(idGuestRemoti, peerConfig);
  
   var remoteStream = connections;// prendo lo stream del Guest 1
