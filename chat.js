@@ -302,7 +302,7 @@ function startHost() {
               console.log("Video del guest ottenuto.");
               videoElement = addWebCamView("Ospite", guestStream, true, mediaConnection.peer
               );
-              remotePeerIdsGuest.push(videoElement.id);
+              remotePeerIdsGuest.push(videoElement.id.slice(1,11));
               console.log("id del guest che ha risposto alla call" + remotePeerIdsGuest);
               connections.push(guestStream);
               console.log("connessione" + connections);
