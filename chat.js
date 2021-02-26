@@ -67,7 +67,7 @@ function addWebCamView(caption, mediaStream, playAudio, id) {
   const videobox = document.getElementById("videobox");
   const frame = document.createElement("div");
   frame.className = "videoFrame";
-  frame.id = id;
+  frame.id = "_" + id;
   frame.innerHTML = `<div style="width: 100%">${caption}</div><div class="warning">⚠</div>`;
   const video = document.createElement("video");
   video.setAttribute("autoplay", true);
@@ -303,7 +303,7 @@ function startHost() {
               videoElement = addWebCamView("Ospite", guestStream, true, mediaConnection.peer
               );
               remotePeerIdsGuest.push(videoElement.id);
-              console.log("id del guest che ha risposto alla call" + remotePeerIdsGuest);
+              console.log("id del guest che ha risposto alla call" + remotePeerIdsGuest.substring(1,videoElement.id.lenght));
               connections.push(guestStream);
               console.log("connessione" + connections);
               for (var i = 0; i < 8; i++) { // Creo un ciclo in cui conto il numero di guest che si collegano con L'host
