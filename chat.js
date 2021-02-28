@@ -335,7 +335,16 @@ function startHost() {
 
           //chiude la chiamata se non supportato
           mediaConnection.on("close", function () {
-            console.log("Il guest ha lasciato la chimata");
+          console.log("Il guest ha lasciato la chiamata");
+          console.log("decrementa il numero di ospiti");
+            var variabile = connections.length;
+             contatore = contatore - 1 ;
+             if(contatore < variabile){
+                connections.pop();
+                console.log("Nuovo numero ospiti " + contatore);
+                console.log("connessioni " + connections.length);
+              }
+
           });
           let chiamataGiaAggiunta = false;
           
