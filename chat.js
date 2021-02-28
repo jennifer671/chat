@@ -158,10 +158,13 @@ function keepAlive(dataConnection) {
 function startGuest() {
   console.log("startGuest");
   const hostID = window.location.search.substring(1);
-  document.getElementById(
-    "urlbox"
-  ).innerHTML = `tu sei il guest nella stanza ${hostID}.`;
-   
+ // document.getElementById(
+   // "urlbox"
+ // ).innerHTML = `tu sei il guest nella stanza ${hostID}.`;
+   const url = "https://jennifer671.github.io/chat?" + hostID;
+    document.getElementById(
+      "urlbox"
+    ).innerHTML = `Tu sei il guest nella stanza ${hostID}. Un altro guest puo connettersi a questo url:<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
   var guestId =  generateUniqueID();
   console.log("Id del guest" + guestId);
  
@@ -212,7 +215,7 @@ function startGuest() {
 }
 
 
-function startGuestToGuest() {
+/*function startGuestToGuest() {
   console.log("inizializza chiamata tra Guest");
   var idGuestRemoti = remotePeerIdsGuest[1];
   const peer = new Peer(idGuestRemoti, peerConfig);
@@ -246,7 +249,7 @@ function startGuestToGuest() {
     console.log("connessione con il guest stabilita");
     keepAlive(dataConnection);
   });*/
- peer.on("connection", function (dataConnection) {
+ /*peer.on("connection", function (dataConnection) {
 
     console.log("Connessione con i guest ");
     keepAlive(dataConnection);
@@ -291,7 +294,7 @@ function startGuestToGuest() {
   ); //peer on call
 
 
-}
+}*/
 
 
 
@@ -360,7 +363,7 @@ function startHost() {
               console.log("Elimina il duplicato");
             }
             if (contatore > 1) {
-              startGuestToGuest(); // inizializzo la chiamata tra i guests
+              startGuestToGuest(); // inizializzo la chiamata tra i guest
             }
           },
             function (err) {
