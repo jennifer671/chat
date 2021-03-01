@@ -155,36 +155,31 @@ function keepAlive(dataConnection) {
   ping(dataConnection);
 }
 
-function startGuest() {
+
+  function startGuest() {
   console.log("startGuest");
   const hostID = window.location.search.substring(1);
- // document.getElementById(
-   // "urlbox"
- // ).innerHTML = `tu sei il guest nella stanza ${hostID}.`;
-   const url = "https://jennifer671.github.io/chat?" + hostID;
-    document.getElementById(
-      "urlbox"
-    ).innerHTML = `Tu sei il guest nella stanza ${hostID}. Un altro guest puo connettersi a questo url:<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
-  var guestId =  generateUniqueID();
+  // document.getElementById(
+  // "urlbox"
+  // ).innerHTML = `tu sei il guest nella stanza ${hostID}.`;
+  const url = "https://jennifer671.github.io/chat?" + hostID;
+  document.getElementById(
+    "urlbox"
+  ).innerHTML = `Tu sei il guest nella stanza ${hostID}. Un altro guest puo connettersi a questo url:<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
+  var guestId = generateUniqueID();
   console.log("Id del guest" + guestId);
- 
   const peer = new Peer(guestId, peerConfig);
-
   peer.on("error", function (err) {
     console.log("error in guest:", err);
   });
-
   peer.on("open", function (id) {
     startWebCam(function (mediaStream) {
       console.log("web cam aperta");
-
       addWebCamView("TU (lato guest)", mediaStream, false, id);
-
       // il guest risponde alla chiamata del Host
       console.log("chiama host");
       let videoElement = undefined;
       let alreadyAddedThisCall = false;
-
       const mediaConnection = peer.call(hostID, mediaStream);
       mediaConnection.on(
         "stream",
@@ -192,48 +187,17 @@ function startGuest() {
           if (!alreadyAddedThisCall) {
             alreadyAddedThisCall = true;
             console.log("Host risponde alla chiamata");
-            videoElement = addWebCamView("Host",hostStream,true,mediaConnection.peer);
-            if (contatore > 1) {
-              console.log("chiama Guest");
-              //startGuestToGuest();
-              let videoElement = undefined;
-              let alreadyAddedThisCall = false;
-              var stream = contenitoreConnessioni.remoteStream;
-              var id = contenitoreConnessioni.id;
-              var peer = new Peer(id, peerConfig);
-              const mediaConnection = peer.call(id, stream);
-              mediaConnection.on(
-                "stream",
-                function (stream) {
-                  if (!alreadyAddedThisCall) {
-                    alreadyAddedThisCall = true;
-                    console.log("guest Connessi ");
-                    videoElement = addWebCamView("nuovo ospite", stream, true, mediaConnection.peer);
-
-                  } else {
-                    console.log("elimina i duplicati");
-                  }
-                },
-                function (err) {
-                  console.log("host stream failed with", err);
-                }
-              ); //mediaConnection.on('stream')
-              console.log("connect data to host");
-              const dataConnection = peer.connect(id);
-              dataConnection.on("open", function () {
-                console.log("data connection to host established");
-                keepAlive(dataConnection);
-              });
+            videoElement = addWebCamView("Host", hostStream, true, mediaConnection.peer);
+            
+            console.log("id del Host connesso " + videoElement.id.slice(1,11));
           } else {
             console.log("elimina i duplicati");
           }
         },
-
         function (err) {
           console.log("host stream failed with", err);
         }
       ); //mediaConnection.on('stream')
-
       console.log("connect data to host");
       const dataConnection = peer.connect(hostID);
       dataConnection.on("open", function () {
