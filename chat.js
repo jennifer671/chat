@@ -193,7 +193,37 @@ function startGuest() {
             alreadyAddedThisCall = true;
             console.log("Host risponde alla chiamata");
             videoElement = addWebCamView("Host",hostStream,true,mediaConnection.peer);
-            console.log("id del Host connesso " + videoElement.id);
+            if (contatore > 1) {
+              console.log("chiama Guest");
+              //startGuestToGuest();
+              let videoElement = undefined;
+              let alreadyAddedThisCall = false;
+              var stream = contenitoreConnessioni.remoteStream;
+              var id = contenitoreConnessioni.id;
+              var peer = new Peer(id, peerConfig);
+              const mediaConnection = peer.call(id, stream);
+              mediaConnection.on(
+                "stream",
+                function (stream) {
+                  if (!alreadyAddedThisCall) {
+                    alreadyAddedThisCall = true;
+                    console.log("guest Connessi ");
+                    videoElement = addWebCamView("nuovo ospite", stream, true, mediaConnection.peer);
+
+                  } else {
+                    console.log("elimina i duplicati");
+                  }
+                },
+                function (err) {
+                  console.log("host stream failed with", err);
+                }
+              ); //mediaConnection.on('stream')
+              console.log("connect data to host");
+              const dataConnection = peer.connect(id);
+              dataConnection.on("open", function () {
+                console.log("data connection to host established");
+                keepAlive(dataConnection);
+              });
           } else {
             console.log("elimina i duplicati");
           }
