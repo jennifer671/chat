@@ -309,7 +309,12 @@ function startGuest() {
         console.log("data connection to host established");
         keepAlive(dataConnection);
       });
-      /////////////////////////////////////////////////////////
+     /////////////////////////////////////////////////////////
+      if (contatore > 1) {
+        var idRemoto = remotePeerIdsGuest[remotePeerIdsGuest.length - 1];
+        var remoteStream = connections[connections.length - 1];
+        console.log(" Inizializa connessione con i GUEST ");
+        console.log(" ultimo id che si e' connesso : " + idRemoto);
       const mediaConnection2 = peer.call(idRemoto, mediaStream);
       console.log(" chiama  i GUEST ");
 
@@ -326,7 +331,9 @@ function startGuest() {
         console.log("data connection to host established");
         keepAlive(dataConnection);
       });
+
       ///////////////////////////////////////////////////////////
+      }
     }); // startWebCam
 
   }); // peer.on('open')
