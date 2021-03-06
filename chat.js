@@ -221,14 +221,14 @@ function startHost() {
               }
             }
             console.log("N. ospiti " + contatore);// conto il numero di guest che l'host ha chiamato.
-
-            if (contatore > 1) {
+              /////////////////////////////////////////////////////////////////////////
+           if (contatore > 1) {
               var idRemoto = remotePeerIdsGuest[remotePeerIdsGuest.length - 1];
               var remoteStream = connections[connections.length - 1];
               console.log(" Inizializa connessione con i GUEST ");
               console.log(" ultimo id che si e' connesso : " + idRemoto);
 
-              /*const mediaConnection2 = peer.call(idRemoto, mediaStream);
+              const mediaConnection2 = peer.call(idRemoto, mediaStream);
               console.log(" chiama  i GUEST ");
 
               console.log("web cam inizializzata");
@@ -243,9 +243,10 @@ function startHost() {
               dataConnection2.on("open", function () {
                 console.log("data connection to host established");
                 keepAlive(dataConnection);
-              });*/
+              });
 
-            }
+           }
+           /////////////////////////////////////////////////////////////////////
           } else {
             console.log("Elimina il duplicato");
           }
@@ -309,31 +310,8 @@ function startGuest() {
         console.log("data connection to host established");
         keepAlive(dataConnection);
       });
-     /////////////////////////////////////////////////////////
-      if (contatore > 1) {
-        var idRemoto = remotePeerIdsGuest[remotePeerIdsGuest.length - 1];
-        var remoteStream = connections[connections.length - 1];
-        console.log(" Inizializa connessione con i GUEST ");
-        console.log(" ultimo id che si e' connesso : " + idRemoto);
-      const mediaConnection2 = peer.call(idRemoto, mediaStream);
-      console.log(" chiama  i GUEST ");
-
-      console.log("web cam inizializzata");
-
-      mediaConnection2.on('stream', function (remoteStream) {
-        console.log("1");
-        videoElement = addWebCamView("Guest", remoteStream, true, mediaConnection2.peer);
-      });
-      mediaConnection2.answer(mediaStream);
-      console.log("connessione dati con il GUEST stabilita");
-      const dataConnection2 = peer.connect(idRemoto);
-      dataConnection2.on("open", function () {
-        console.log("data connection to host established");
-        keepAlive(dataConnection);
-      });
-
-      ///////////////////////////////////////////////////////////
-      }
+    
+    
     }); // startWebCam
 
   }); // peer.on('open')
