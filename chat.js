@@ -270,7 +270,7 @@ function startGuest() {
   const url = "https://jennifer671.github.io/chat?" + hostID;
   document.getElementById(
     "urlbox"
-  ).innerHTML = `Tu sei il guest nella stanza ${hostID}. Un altro guest puo connettersi a questo url:<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
+  ).innerHTML = `Tu sei il GUEST nella stanza ${hostID}. Un altro GUEST puo' connettersi a questo URL:<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
   var guestId = generateUniqueID();
   console.log("Id del guest" + guestId);
   const peer = new Peer(guestId, peerConfig);
