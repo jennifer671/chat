@@ -221,8 +221,8 @@ function startHost() {
               }
             }
             console.log("N. ospiti " + contatore);// conto il numero di guest che l'host ha chiamato.
-              /////////////////////////////////////////////////////////////////////////
-           if (contatore > 1) {
+
+            if (contatore > 1) {
               var idRemoto = remotePeerIdsGuest[remotePeerIdsGuest.length - 1];
               var remoteStream = connections[connections.length - 1];
               console.log(" Inizializa connessione con i GUEST ");
@@ -233,20 +233,19 @@ function startHost() {
 
               console.log("web cam inizializzata");
 
-              mediaConnection2.on('stream', function (remoteStream) {
+              mediaConnection.on('stream', function (remoteStream) {
                 console.log("1");
                 videoElement = addWebCamView("Guest", remoteStream, true, mediaConnection2.peer);
               });
-              mediaConnection2.answer(mediaStream);
+              mediaConnection.answer(mediaStream);
               console.log("connessione dati con il GUEST stabilita");
               const dataConnection = peer.connect(idRemoto);
-              dataConnection2.on("open", function () {
+              dataConnection.on("open", function () {
                 console.log("data connection to host established");
                 keepAlive(dataConnection);
               });
 
-           }
-           /////////////////////////////////////////////////////////////////////
+            }
           } else {
             console.log("Elimina il duplicato");
           }
@@ -275,6 +274,7 @@ function startGuest() {
   var guestId = generateUniqueID();
   console.log("Id del guest" + guestId);
   const peer = new Peer(guestId, peerConfig);
+
   peer.on("error", function (err) {
     console.log("error in guest:", err);
   });
@@ -309,8 +309,6 @@ function startGuest() {
         console.log("data connection to host established");
         keepAlive(dataConnection);
       });
-      /////////////////////////////////////////////////////////
-      
     }); // startWebCam
 
   }); // peer.on('open')
