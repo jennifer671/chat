@@ -281,7 +281,7 @@ function startGuest() {
   ).innerHTML = `Tu sei il guest nella stanza ${hostID}. Un altro guest puo connettersi a questo url:<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
   var guestId = generateUniqueID();
   console.log("Id del guest" + guestId);
-  var peer = new Peer(id, {
+  var peer = new Peer(guestId, {
     secure: true,
     host: 'videodesk-ennesimo.herokuapp.com',
     port: 443,
