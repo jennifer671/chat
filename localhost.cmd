@@ -9,6 +9,6 @@ goto end
 :launch
 REM Delayed launch
 timeout /t 1 /nobreak
-start http://localhost:9000/index.html
+start http://localhost:8000/index.html
 
 :end
