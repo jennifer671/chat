@@ -30,11 +30,11 @@ var remoteStreamList = [];
 var remote = []; // un Array di mediaStream
 
 const peerConfig = {
-  debug: 1 /*
-    host: "peer.???.org",
-    port: 9001,
+  //debug: 1
+    host: 'localhost',
+    port: 8000,
     path: '/remoteplay',
-    key: 'remoteplay'*/
+    key: 'remoteplay'
 };
 
 function generateUniqueID() {
@@ -166,12 +166,7 @@ function startHost() {
   // genera l'id del Host
   const id = localStorage.getItem('id') || generateUniqueID();
   localStorage.setItem('id', id);
- const peer = new Peer(id, {
-    host: 'localhost',
-    port: 9000,
-    path: '/myapp'
-  });
-  //var peer = new Peer(id, peerConfig); // un peer puo' connettersi usando questo id
+ var peer = new Peer(id, peerConfig); // un peer puo' connettersi usando questo id
   // imposta i parametri per gli eventi tra i peer 
   peer.on('errore', function (err) {
     console.log("errore nel Host:", err);
