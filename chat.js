@@ -32,9 +32,9 @@ var remote = []; // un Array di mediaStream
 const peerConfig = {
   //debug: 1
     host: 'localhost',
-    port: 8000,
-    path: '/remoteplay',
-    key: 'remoteplay'
+    port: 9000,
+    path: '/myapp',
+    key: 'peerjs'
 };
 
 function generateUniqueID() {
