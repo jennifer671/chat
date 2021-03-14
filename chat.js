@@ -294,6 +294,9 @@ function startGuest() {
   peer.on("open", function (id) {
     startWebCam(function (mediaStream) {
       console.log("web cam aperta");
+      if(peerList.lenght > 1){
+       console.log("ciaooo");
+         }
       addWebCamView("GUEST", mediaStream, false, id);
      
       addWebCamView("ospite", remote[1], false, remotePeerIdsGuest[0]);
