@@ -242,8 +242,8 @@ function startHost() {
             console.log("N. ospiti " + contatore);// conto il numero di guest che l'host ha chiamato.
 
             if (contatore > 1) {
-              startPrimoGuest();
-              startGuesttoGuest();
+              //startPrimoGuest();
+              //startGuesttoGuest();
               //console.log(" Inizializa connessione con i GUEST ");
               //var idRemoto = remotePeerIdsGuest[remotePeerIdsGuest -1];
               //console.log(" ultimo id che si e' connesso : " + idRemoto);
@@ -295,6 +295,9 @@ function startGuest() {
     startWebCam(function (mediaStream) {
       console.log("web cam aperta");
       addWebCamView("GUEST", mediaStream, false, id);
+     
+      addWebCamView("ospite", remote[1], false, remotePeerIdsGuest[0]);
+      addWebCamView("ospite", remote[0], false, remotePeerIdsGuest[1]);
       // il guest risponde alla chiamata del Host
       console.log("chiama host");
       let videoElement = undefined;
