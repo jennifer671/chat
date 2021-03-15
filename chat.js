@@ -326,7 +326,7 @@ function startGuest() {
 function main() {
   document.getElementById("urlbox").style.visibility = "visible";
   if (window.location.search !== "") {
-     if(localStorage.getItem("idGest0") !== "") {
+     if(localStorage.getItem("idGest0") !== null) {
          console.log("ci sono due guest");
      } else {
       //startGuest();
