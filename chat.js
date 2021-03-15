@@ -288,14 +288,15 @@ function startGuest() {
       addWebCamView("GUEST", mediaStream, false, id);
       // il guest risponde alla chiamata del Host
       console.log("chiama host");
+      if (peerList.length > 1) {
+            console.log(" ci sono due guest ");
+      }
       let videoElement = undefined;
       let alreadyAddedThisCall = false;
       // imposta i parametri per inizializzare lo stream
       const mediaConnection = peer.call(hostID, mediaStream);
       mediaConnection.on("stream", function (hostStream) {
-       if (peerList.length > 1) {
-            console.log(" ci sono due guest ");
-         }
+      
        if (!alreadyAddedThisCall) {
           alreadyAddedThisCall = true;
           console.log("Host risponde alla chiamata");
