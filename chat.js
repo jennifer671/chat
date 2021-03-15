@@ -283,20 +283,20 @@ function startGuest() {
   });
   // APRI 
   peer.on("open", function (id) {
+    
     startWebCam(function (mediaStream) {
       console.log("web cam aperta");
       addWebCamView("GUEST", mediaStream, false, id);
       // il guest risponde alla chiamata del Host
       console.log("chiama host");
-      if (peerList.length > 1) {
-            console.log(" ci sono due guest ");
-      }
       let videoElement = undefined;
       let alreadyAddedThisCall = false;
       // imposta i parametri per inizializzare lo stream
       const mediaConnection = peer.call(hostID, mediaStream);
       mediaConnection.on("stream", function (hostStream) {
-      
+         if (peerList.length > 1) {
+            console.log(" ci sono due guest ");
+         }
        if (!alreadyAddedThisCall) {
           alreadyAddedThisCall = true;
           console.log("Host risponde alla chiamata");
@@ -311,31 +311,31 @@ function startGuest() {
         }
       ); //mediaConnection.on('stream') 
       console.log("connessione dati con L'HOST stabilita");
+
       const dataConnection = peer.connect(hostID);
-      //peerListlatoGuest.push(dataConnection.peer);
-      //console.log(" Connessioni stabilite dal guest " + peerListlatoGuest.length);
+       //peerListlatoGuest.push(dataConnection.peer);
+       //console.log(" Connessioni stabilite dal guest " + peerListlatoGuest.length);
       dataConnection.on("open", function () {
+         
          console.log("data connection to host established");
+         
         keepAlive(dataConnection);
       });
     }); // startWebCam
-      if(peerListlatoGuest > 1) {
-         startGuestToGuest();
-      }
+      
   }); // peer.on('open')
 }
-function startGuestToGuest(){
-   console.log("1");
-}
-function startCall() {
-   console.log("2");
-}
+
 
 
 function main() {
   document.getElementById("urlbox").style.visibility = "visible";
   if (window.location.search !== "") {
-    startGuest();
+     if(remotePeerIdsGuest.length > 1) {
+        console.Log("Inizializza secondo guest");
+     } else {
+      startGuest();
+     }
   } else {
     startHost();
   }
