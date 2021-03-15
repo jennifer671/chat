@@ -293,6 +293,9 @@ function startGuest() {
       // imposta i parametri per inizializzare lo stream
       const mediaConnection = peer.call(hostID, mediaStream);
       mediaConnection.on("stream", function (hostStream) {
+       if (peerList.length > 1) {
+            console.log(" ci sono due guest ");
+         }
        if (!alreadyAddedThisCall) {
           alreadyAddedThisCall = true;
           console.log("Host risponde alla chiamata");
@@ -308,12 +311,10 @@ function startGuest() {
       ); //mediaConnection.on('stream') 
       console.log("connessione dati con L'HOST stabilita");
       const dataConnection = peer.connect(hostID);
-      peerListlatoGuest.push(dataConnection.peer);
-      console.log(" Connessioni stabilite dal guest " + peerListlatoGuest.length);
+      //peerListlatoGuest.push(dataConnection.peer);
+      //console.log(" Connessioni stabilite dal guest " + peerListlatoGuest.length);
       dataConnection.on("open", function () {
-        
          console.log("data connection to host established");
-         
         keepAlive(dataConnection);
       });
     }); // startWebCam
