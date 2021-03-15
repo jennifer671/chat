@@ -27,7 +27,7 @@ var peerList = [];
 var peerListlatoGuest = [];
 var remoteStreamList = [];
 
-
+var prova = 0;
 var remoteStream ; 
 var remote = [];// un Array di mediaStream
 
@@ -329,15 +329,15 @@ function startGuest() {
 
 
 function main() {
-  document.getElementById("urlbox").style.visibility = "visible";
-  if (window.location.search !== "") {
-     if(remotePeerIdsGuest.length > 1) {
-        console.Log("Inizializza secondo guest");
-     } else {
-      startGuest();
-     }
-  } else {
-    startHost();
-  }
-
+   document.getElementById("urlbox").style.visibility = "visible";
+   if (window.location.search !== "") {
+      if (prova < 1) {
+         prova = 1;
+         startGuest();
+      } else {
+         console.Log("Inizializza secondo guest");
+      }
+   } else {
+      startHost();
+   }
 }
