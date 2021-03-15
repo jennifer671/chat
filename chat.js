@@ -329,7 +329,7 @@ function main() {
      if(localStorage.getItem("idGest0") !== null) {
          console.log("ci sono due guest");
      } else {
-      //startGuest();
+      startGuest();
      }
   } else {
     startHost();
