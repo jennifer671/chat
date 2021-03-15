@@ -308,9 +308,10 @@ function startGuest() {
       ); //mediaConnection.on('stream') 
       console.log("connessione dati con L'HOST stabilita");
       const dataConnection = peer.connect(hostID);
+      peerListlatoGuest.push(dataConnection.peer);
+      console.log(" Connessioni stabilite dal guest " + peerListlatoGuest.length);
       dataConnection.on("open", function () {
-         peerListlatoGuest.push(dataConnection.peer);
-         console.log(" Connessioni stabilite dal guest " + peerListlatoGuest.length);
+        
          console.log("data connection to host established");
          
         keepAlive(dataConnection);
