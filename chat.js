@@ -294,7 +294,7 @@ function startGuest() {
       // il guest risponde alla chiamata del Host
       console.log("chiama host");
       let videoElement = undefined;
-     let videoElement2 = undefined;
+   
       let alreadyAddedThisCall = false;
       // imposta i parametri per inizializzare lo stream
       const mediaConnection = peer.call(hostID, mediaStream);
@@ -305,9 +305,7 @@ function startGuest() {
          
           videoElement = addWebCamView("HOST", hostStream, true, mediaConnection.peer);
           console.log("id del Host connesso " + videoElement.id.slice(1, 11));
-         if(idGuest1 !== null){
-           console.log("nuovo guest");
-         }
+         
         } else {
           console.log("elimina i duplicati");
         }
@@ -331,13 +329,12 @@ function startGuest() {
 function main() {
   document.getElementById("urlbox").style.visibility = "visible";
   if (window.location.search !== "") {
-     if(localStorage.getItem("idGest0") !== null) {
-         console.log("ci sono due guest");
+         startGuest();
      } else {
-      startGuest();
-     }
-  } else {
     startHost();
-  }
+  } 
+      
+     
+ 
 
 }
