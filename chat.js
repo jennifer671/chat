@@ -294,7 +294,7 @@ function startGuest() {
       // il guest risponde alla chiamata del Host
       console.log("chiama host");
       let videoElement = undefined;
-     let videoElement = undefined;
+     let videoElement2 = undefined;
       let alreadyAddedThisCall = false;
       // imposta i parametri per inizializzare lo stream
       const mediaConnection = peer.call(hostID, mediaStream);
