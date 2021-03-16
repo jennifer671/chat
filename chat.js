@@ -285,7 +285,7 @@ function startGuest() {
     port: 443,
     path: '/'
   });*/
- const peer = new Peer(generateUniqueID();, peerConfig);
+ const peer = new Peer(generateUniqueID(), peerConfig);
   peer.on("error", function (err) {
     console.log("error in guest:", err);
   });
