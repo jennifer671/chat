@@ -166,13 +166,15 @@ function startHost() {
   // genera l'id del Host
   const id = localStorage.getItem('id') || generateUniqueID();
   localStorage.setItem('id', id);
-  var peer = new Peer(id, {
+  /*var peer = new Peer(id, {
     secure: true,
     host: 'videodesk-ennesimo.herokuapp.com',
     port: 443,
     path: '/'
-  }); // un peer puo' connettersi usando questo id
+  }); // un peer puo' connettersi usando questo id*/
+ const peer = new Peer(id, peerConfig);
   // imposta i parametri per gli eventi tra i peer 
+ 
   peer.on('errore', function (err) {
     console.log("errore nel Host:", err);
   });
@@ -277,12 +279,13 @@ function startGuest() {
   ).innerHTML = `Tu sei il guest nella stanza ${hostID}. Un altro guest puo connettersi a questo url:<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
   var guestId = generateUniqueID();
   console.log("Id del guest" + guestId);
-  var peer = new Peer(guestId, {
+  /*var peer = new Peer(guestId, {
     secure: true,
     host: 'videodesk-ennesimo.herokuapp.com',
     port: 443,
     path: '/'
-  });
+  });*/
+ const peer = new Peer(generateUniqueID();, peerConfig);
   peer.on("error", function (err) {
     console.log("error in guest:", err);
   });
