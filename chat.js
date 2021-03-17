@@ -286,6 +286,7 @@ function startGuest() {
     path: '/'
   });*/
  const peer = new Peer(guestId, peerConfig);
+  localStorage.setItem('peer' + guestId, peer);
   peer.on("error", function (err) {
     console.log("error in guest:", err);
   });
