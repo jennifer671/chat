@@ -165,7 +165,7 @@ function startHost() {
   console.log("start Host");
   // genera l'id del Host
   const id = localStorage.getItem('id') || generateUniqueID();
-  localStorage.setItem('id', id);
+  sessionStorage.setItem('id', id);
   /*var peer = new Peer(id, {
     secure: true,
     host: 'videodesk-ennesimo.herokuapp.com',
@@ -285,7 +285,7 @@ function startGuest() {
     port: 443,
     path: '/'
   });*/
-   localStorage.setItem('guestId', guestId);
+   sessionStorage.setItem('guestId', guestId);
    const peer = new Peer(guestId, peerConfig);
   //localStorage.setItem('peer' + guestId, peer);
   peer.on("error", function (err) {
