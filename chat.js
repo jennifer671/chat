@@ -334,11 +334,9 @@ function startGuest() {
 function main() {
   document.getElementById("urlbox").style.visibility = "visible";
   if (window.location.search !== "") {
-     if(sessionStorage.getItem("guestId") !== null){
-          console.log("'''''''''''")();
-     } else{
-        startGuest();
-     }   
+     
+       // startGuest();
+       
   } else {
       startHost();     
   }
