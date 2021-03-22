@@ -334,12 +334,14 @@ function startGuest() {
 
 function main() {
   document.getElementById("urlbox").style.visibility = "visible";
-  if(sessionStorage.getItem('numeroC') > 1){
-     StartSecondGuest();
-  }
+  
   if (window.location.search !== "") {
+     if(sessionStorage.getItem('numeroC') > 1){
+        StartSecondGuest();
+     }
       startGuest();
   } else {
+
       startHost();     
   }
 }
