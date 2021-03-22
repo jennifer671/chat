@@ -196,6 +196,7 @@ function startHost() {
         keepAlive(dataConnection);
         peerList.push(dataConnection.peer);
         console.log(" Connessioni con L'HOST " + peerList.length);
+        sessionStorage.setItem('numeroC', peerList.length);
       }); // peer.on(connection)
       //Emesso quando un peer remoto tenta di chiamarti. L'emissione mediaConnection non è ancora attiva; devi prima rispondere alla chiamata
       // CHIAMA
@@ -333,10 +334,11 @@ function startGuest() {
 
 function main() {
   document.getElementById("urlbox").style.visibility = "visible";
+  if(sessionStorage.getItem('numeroC') > 1){
+     StartSecondGuest();
+  }
   if (window.location.search !== "") {
-     
-       startGuest();
-       
+      startGuest();
   } else {
       startHost();     
   }
