@@ -332,10 +332,16 @@ function startGuest() {
 }
 
 
+
 function main() {
    document.getElementById("urlbox").style.visibility = "visible";
+   var numeroC = getItem("numeroC");
    if (window.location.search !== "") {
-      startGuest();
+      if(numeroC !== 1) {
+         console.log("NumeroC diverso da 1");
+      } else {
+         startGuest();
+      }
    } else {
       startHost();
    }
