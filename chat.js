@@ -332,7 +332,7 @@ function startGuest() {
 }
 
 function main() {
-  var numeroVolte = sessionStorage.getItem("NumeroVolte") || sessionStorage.setItem("numeroVolte", 0);
+  var numeroVolte = sessionStorage.getItem("numeroVolte") || sessionStorage.setItem("numeroVolte", 0);
   document.getElementById("urlbox").style.visibility = "visible";
   /*if (window.location.search !== "") {
      numeroVolte = numeroVolte+1;
