@@ -331,15 +331,14 @@ function startGuest() {
   }); // peer.on('open')
 }
 
-
 function main() {
+  var numeroVolte = sessionStorage.getItem("NumeroVolte") || sessionStorage.setItem("numeroVolte", 1);
   document.getElementById("urlbox").style.visibility = "visible";
-  
   if (window.location.search !== "") {
-     
+     numeroVolte = numeroVolte+1;
+     sessionStorage.setItem("numeroVolte", numeroVolte);
       startGuest();
   } else {
-
       startHost();     
   }
 }
