@@ -341,8 +341,9 @@ function main() {
   } else {
       startHost();     
   }*/
-  if (window.location.search == "") {
-     var numeroVolte = sessionStorage.setItem("numeroVolte", 0);
+   if (window.location.search == "") {
+      var numeroVolte = 0;
+      sessionStorage.setItem("numeroVolte", numeroVolte);
       numeroVolte = numeroVolte + 1;
       sessionStorage.setItem("numeroVolte", numeroVolte);
       startHost(); 
