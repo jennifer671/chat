@@ -335,7 +335,7 @@ function startGuest() {
 
 function main() {
    document.getElementById("urlbox").style.visibility = "visible";
-   var numeroC = getItem("numeroC");
+   var numeroC = sessionStorage.getItem("numeroC");
    if (window.location.search !== "") {
       if(numeroC !== 1) {
          console.log("NumeroC diverso da 1");
