@@ -342,7 +342,6 @@ function main() {
          startGuest();
       } else {
          console.log("NumeroC diverso da 1");
-         
       }
    } else {
       startHost();
