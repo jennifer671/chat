@@ -338,7 +338,7 @@ function main() {
    document.getElementById("urlbox").style.visibility = "visible";
    var numeroC = sessionStorage.getItem("numeroC");
    if (window.location.search !== "") {
-      if(numeroC == NaN) {
+      if(numeroC == null) {
          startGuest();
       } else {
          console.log("NumeroC diverso da 1");
