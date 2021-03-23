@@ -331,28 +331,12 @@ function startGuest() {
   }); // peer.on('open')
 }
 
+
 function main() {
-  var numeroVolte = sessionStorage.getItem("numeroVolte") || sessionStorage.setItem("numeroVolte", 0);
-  document.getElementById("urlbox").style.visibility = "visible";
-  /*if (window.location.search !== "") {
-     numeroVolte = numeroVolte+1;
-     sessionStorage.setItem("numeroVolte", numeroVolte);
+   document.getElementById("urlbox").style.visibility = "visible";
+   if (window.location.search !== "") {
       startGuest();
-  } else {
-      startHost();     
-  }*/
-   if (window.location.search == "") {
-      var numeroVolte = 0;
-      sessionStorage.setItem("numeroVolte", numeroVolte);
-      numeroVolte = numeroVolte + 1;
-      sessionStorage.setItem("numeroVolte", numeroVolte);
-      startHost(); 
-  } else {
-      var numeroVolte = sessionStorage.getItem("numeroVolte");
-      numeroVolte = numeroVolte + 1;
-      sessionStorage.setItem("numeroVolte", numeroVolte);
-     if (numeroVolte !== 1) {
-      startGuest();
-      }
-  } 
+   } else {
+      startHost();
+   }
 }
