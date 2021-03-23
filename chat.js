@@ -332,13 +332,24 @@ function startGuest() {
 }
 
 function main() {
-  var numeroVolte = sessionStorage.getItem("NumeroVolte") || sessionStorage.setItem("numeroVolte", 1);
+  var numeroVolte = sessionStorage.getItem("NumeroVolte") || sessionStorage.setItem("numeroVolte", 0);
   document.getElementById("urlbox").style.visibility = "visible";
-  if (window.location.search !== "") {
+  /*if (window.location.search !== "") {
      numeroVolte = numeroVolte+1;
      sessionStorage.setItem("numeroVolte", numeroVolte);
       startGuest();
   } else {
       startHost();     
-  }
+  }*/
+   if (numeroVolte == 0) {
+      numeroVolte = numeroVolte + 1;
+      sessionStorage.setItem("numeroVolte", numeroVolte);
+      startHost(); 
+  } else {
+      numeroVolte = numeroVolte + 1;
+      sessionStorage.setItem("numeroVolte", numeroVolte);
+     if (numeroVolte !== 1) {
+      startGuest();
+      }
+  } 
 }
