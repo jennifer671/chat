@@ -341,11 +341,13 @@ function main() {
   } else {
       startHost();     
   }*/
- if (window.location.search == "") {
+  if (window.location.search == "") {
+     var numeroVolte = sessionStorage.setItem("numeroVolte", 0);
       numeroVolte = numeroVolte + 1;
       sessionStorage.setItem("numeroVolte", numeroVolte);
       startHost(); 
   } else {
+      var numeroVolte = sessionStorage.getItem("numeroVolte");
       numeroVolte = numeroVolte + 1;
       sessionStorage.setItem("numeroVolte", numeroVolte);
      if (numeroVolte !== 1) {
