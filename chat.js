@@ -333,14 +333,16 @@ function startGuest() {
 
 
 
+
 function main() {
    document.getElementById("urlbox").style.visibility = "visible";
    var numeroC = sessionStorage.getItem("numeroC");
    if (window.location.search !== "") {
-      if(numeroC !== NaN) {
-         console.log("NumeroC diverso da 1");
-      } else {
+      if(numeroC == NaN) {
          startGuest();
+      } else {
+         console.log("NumeroC diverso da 1");
+         
       }
    } else {
       startHost();
