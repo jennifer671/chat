@@ -20,17 +20,17 @@ const MISSABLE_INTERVALS = 10;
 
 var remotePeerIdsGuest = []; // id dei guest
 
-var contatore = 0; // contatore globale per contare le persone connesse.
-var remotePeerId = [];
+var contatore = 0; // contatore globale per contare le connessioni.
+
 var remoteStream;
-var peerList = [];
-var remoteStreamList = [];
+var peerList = []; // conta le connessioni ricevute dal host 
+var remoteStreamList = []; // salva lo stream remoto 
 
 
 var remote = []; // un Array di mediaStream
 
 const peerConfig = {
-  debug: 1
+ debug: 1
   /*host: 'localhost',
   port: 9000,
   path: '/myapp',
@@ -164,43 +164,53 @@ function keepAlive(dataConnection) {
 function startHost() {
   console.log("start Host");
   // genera l'id del Host
-  const id = localStorage.getItem('id') || generateUniqueID();
-  sessionStorage.setItem('id', id);
+  const id = sessionStorage.getItem('id') || generateUniqueID();
+  localStorage.setItem('id', id);
   /*var peer = new Peer(id, {
     secure: true,
     host: 'videodesk-ennesimo.herokuapp.com',
     port: 443,
     path: '/'
   }); // un peer puo' connettersi usando questo id*/
- const peer = new Peer(id, peerConfig);
+  const peer = new Peer(id, peerConfig);
   // imposta i parametri per gli eventi tra i peer 
- 
   peer.on('errore', function (err) {
     console.log("errore nel Host:", err);
   });
   // Emesso quando viene stabilita una connessione con il peerHost 
   // APRI 
+   
   peer.on('open', function (id) {
     console.log("L'Id peer dell' HOST : " + id);
     const url = "https://jennifer671.github.io/chat?" + id;
     document.getElementById("urlbox"
     ).innerHTML = `Tu sei l' HOST. Un guest puo' connettersi a questo URL :<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
     // visualizza il video del HOST
+    
     startWebCam(function (mediaStream) {
       addWebCamView("TU : HOST", mediaStream, false, id);
       let videoElement = undefined;
       //Emesso quando viene stabilita una nuova connessione dati da un peer remoto 
       // CONNETTI
+       
+
       peer.on('connection', function (dataConnection) {
         console.log(" connessione dati con il GUEST stabilita ");
         keepAlive(dataConnection);
+         
         peerList.push(dataConnection.peer);
         console.log(" Connessioni con L'HOST " + peerList.length);
         sessionStorage.setItem('numeroC', peerList.length);
+        
+
       }); // peer.on(connection)
       //Emesso quando un peer remoto tenta di chiamarti. L'emissione mediaConnection non è ancora attiva; devi prima rispondere alla chiamata
       // CHIAMA
+
+      
+      
       peer.on('call', function (mediaConnection) {
+
         console.log("GUEST chiamato");
         // rispondo alla call fornendo lo stram dell'HOST
         mediaConnection.answer(mediaStream);
@@ -212,7 +222,6 @@ function startHost() {
           contatore = contatore - 1;
           if (contatore < variabile) {
             peerList.pop();
-            console.log("Nuovo numero ospiti " + contatore);
             console.log("connessioni " + peerList.length);
           }
         });
@@ -221,37 +230,17 @@ function startHost() {
 
         mediaConnection.on('stream', function (guestStream) {
           if (!callEsiste) {
-            callEsiste = true;
-
-            console.log(" Video del GUEST trasmesso ");
-
-            videoElement = addWebCamView("GUEST", guestStream, true, mediaConnection.peer);
-            var video = guestStream;
-            remote.push(video);
-            remotePeerIdsGuest.push(videoElement.id.slice(1, 11));
-            for(var i = 0; i < remotePeerIdsGuest.length; i++) {
-               const idGuestRemoto = remotePeerIdsGuest[i];
-               localStorage.setItem("idGuest" + i, idGuestRemoto);
-            }
-            //remote.push(guestStream.id);
-            //console.log(" id connessione" + remote);
-            console.log("id del Guest che ha risposto alla call. " + remotePeerIdsGuest);
-
-
-
-            for (var i = 0; i < 8; i++) { // Creo un ciclo in cui conto il numero di guest che si collegano con L'host
-              if (contatore < peerList.length) {
-                contatore++;
-              }
-            }
-            console.log("N. ospiti " + contatore);// conto il numero di guest che l'host ha chiamato.
-
-            if (contatore > 1) {
-              
-
-
-
-            }
+               callEsiste = true;
+               console.log(" Video del GUEST trasmesso ");
+               videoElement = addWebCamView("GUEST", guestStream, true, mediaConnection.peer);
+               var video = guestStream;
+               remote.push(video);
+               remotePeerIdsGuest.push(mediaConnection.peer);
+                console.log("id del Guest che ha risposto alla call. " + remotePeerIdsGuest);
+                if(peerList.length > 1){
+                   //getOttieniConnessione();
+                }
+               
           } else {
             console.log("Elimina il duplicato");
           }
@@ -263,11 +252,11 @@ function startHost() {
         function (err) {
           console.log("chiamata con il guest fallita ", err);
         }
-
-
       ); // peer.on(call)
+      
     }); // startWebCam
   });// peer.on(open)
+  
 }
 
 
@@ -278,7 +267,7 @@ function startGuest() {
   document.getElementById(
     "urlbox"
   ).innerHTML = `Tu sei il guest nella stanza ${hostID}. Un altro guest puo connettersi a questo url:<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
- var guestId = generateUniqueID();
+   var guestId = generateUniqueID();
   console.log("Id del guest" + guestId);
   /*var peer = new Peer(guestId, {
     secure: true,
@@ -288,7 +277,7 @@ function startGuest() {
   });*/
    sessionStorage.setItem('guestId', guestId);
    const peer = new Peer(guestId, peerConfig);
-  //localStorage.setItem('peer' + guestId, peer);
+   //localStorage.setItem('peer' + guestId, peer);
   peer.on("error", function (err) {
     console.log("error in guest:", err);
   });
@@ -300,7 +289,6 @@ function startGuest() {
       // il guest risponde alla chiamata del Host
       console.log("chiama host");
       let videoElement = undefined;
-   
       let alreadyAddedThisCall = false;
       // imposta i parametri per inizializzare lo stream
       const mediaConnection = peer.call(hostID, mediaStream);
@@ -308,10 +296,8 @@ function startGuest() {
         if (!alreadyAddedThisCall) {
           alreadyAddedThisCall = true;
           console.log("Host risponde alla chiamata");
-         
           videoElement = addWebCamView("HOST", hostStream, true, mediaConnection.peer);
           console.log("id del Host connesso " + videoElement.id.slice(1, 11));
-         
         } else {
           console.log("elimina i duplicati");
         }
@@ -330,14 +316,108 @@ function startGuest() {
 
   }); // peer.on('open')
 }
+function getOttieniConnessione() {
+   const idRemoto1 = remotePeerIdsGuest[0];
+   var remoteGuest2 = remote[1];
+   console.log("L'Id peer del Guest 1: " + idRemoto1);
+   console.log("stream remoto " + remoteGuest2);
+   //const peer = localStorage.getItem("peer" + idRemoto1);
+   const peer = new Peer(idRemoto1, peerConfig);
+   peer.on('open', function (idRemoto1) {
+      console.log("L'Id peer del Guest 1: " + idRemoto1);
+
+      startWebCam(function (mediaStream) {
+         addWebCamView("Guest 1", mediaStream, false, idRemoto1);
+         let videoElement = undefined;
+        
+
+         peer.on('connection', function (connessione) {
+            console.log(" connessione dati con il GUEST stabilita ");
+            keepAlive(connessione);
+
+         }); // peer.on(connection)
+         
+
+         peer.on('call', function (mediaConnection2) {
+
+            console.log("GUEST chiamato");
+         
+            mediaConnection2.answer(mediaStream);
+            
+            let callEsiste = false;
+
+            mediaConnection2.on('stream', function (remoteGuest2) {
+               if (!callEsiste) {
+                  callEsiste = true;
+
+                  console.log(" Video del GUEST trasmesso ");
+                  videoElement = addWebCamView("GUEST", remoteGuest2, true, mediaConnection2.peer);
+
+               } else {
+                  console.log("Elimina il duplicato");
+               }
+            },
+               function (err) {
+                  console.log("Stream del guest fallito ", err);
+               });
+         },
+            function (err) {
+               console.log("chiamata con il guest fallita ", err);
+            }
+
+
+         ); // peer.on(call)
+      }); // startWebCam
+   });// peer.on(open)
+
+   var remoteGuest1= remote[0];
+   var idRemoto2 = remotePeerIdsGuest[1];
+   const peer2 = new Peer(idRemoto2, peerConfig);
+   console.log("stream remoto " + remoteGuest1);
+   peer2.on("open", function (idRemoto1) {
+      startWebCam(function (mediaStream) {
+         console.log("web cam aperta");
+         addWebCamView("GUEST ospite", mediaStream, false, idRemoto1);
+         // il guest risponde alla chiamata del Host
+         console.log("chiama host");
+         let videoElement = undefined;
+         let alreadyAddedThisCall = false;
+         // imposta i parametri per inizializzare lo stream
+         const mediaConnection2 = peer2.call(idRemoto1, mediaStream);
+         mediaConnection2.on("stream", function (remoteGuest1) {
+            if (!alreadyAddedThisCall) {
+               alreadyAddedThisCall = true;
+               console.log("Host risponde alla chiamata");
+               videoElement = addWebCamView("Guest 2", remoteGuest1, true, mediaConnection2.peer);
+
+            } else {
+               console.log("elimina i duplicati");
+            }
+         },
+            function (err) {
+               console.log("host stream failed with", err);
+            }
+         ); //mediaConnection.on('stream')
+         console.log("connessione dati con L'HOST stabilita");
+         const connessione = peer2.connect(idRemoto1);
+         connessione.on("open", function () {
+            console.log("data connection to host established");
+            keepAlive(connessione);
+         });
+      }); // startWebCam
+
+   }); // peer.on('open')
+   
+   
+}
 
 
 
 function main() {
   document.getElementById("urlbox").style.visibility = "visible";
   if (window.location.search !== "") {
-      startGuest();
+    startGuest();
   } else {
-      startHost();     
+    startHost();
   }
 }
