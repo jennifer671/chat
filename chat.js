@@ -333,17 +333,11 @@ function startGuest() {
 
 
 
-
 function main() {
-   document.getElementById("urlbox").style.visibility = "visible";
-   var numeroC = sessionStorage.getItem("numeroC");
-   if (window.location.search !== "") {
-      if(numeroC == null) {
-         startGuest();
-      } else {
-         console.log("NumeroC diverso da 1");
-      }
-   } else {
-      startHost();
-   }
+  document.getElementById("urlbox").style.visibility = "visible";
+  if (window.location.search !== "") {
+      startGuest();
+  } else {
+      startHost();     
+  }
 }
