@@ -175,7 +175,7 @@ function startHost() {
         //invio al guest una stringa contenente tutti gli id dei Guest che si collegano
         dataConnection.on('open', function(){
           
-          dataConnection.send("hello!");
+          dataConnection.send(remotePeerIdsGuest);
         });// dataConnection.on
 
       }); // peer.on(connection)
@@ -248,8 +248,10 @@ function startGuest() {
     port: 443,
     path: '/'
   });*/
-  sessionStorage.setItem('guestId', guestId);
+  
   const peer = new Peer(guestId, peerConfig);
+  // salvo l'oggetto peer nella mia sessione.
+  sessionStorage.setItem('peer', peer);
   //localStorage.setItem('peer' + guestId, peer);
   peer.on("error", function (err) {
     console.log("error in guest:", err);
@@ -284,9 +286,11 @@ function startGuest() {
       dataConnection.on("open", function () {
         console.log("data connection to host established");
         keepAlive(dataConnection);
-        //ricevi il messaggio del Host
+        //ricevi il messaggio del Host.
         dataConnection.on('data', function(data){
-          console.log("ricevuto", data);
+          console.log("id dei Guest ricevuti", data);
+          //salvo gli id dei guest nella memoria locale.
+          sessionStorage.setItem('guestId', data);
         });// dataConnection.send
       });
     }); // startWebCam
