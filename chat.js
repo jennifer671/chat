@@ -174,8 +174,8 @@ function startHost() {
         sessionStorage.setItem('numeroC', peerList.length);
         //invio al guest una stringa contenente tutti gli id dei Guest che si collegano
         dataConnection.on('open', function(){
-          var dati = "hello!";
-          dataConnection.send(dati);
+          
+          dataConnection.send("hello!");
         });// dataConnection.on
 
       }); // peer.on(connection)
