@@ -293,7 +293,7 @@ function startGuest() {
         dataConnection.on('data', function(data){
           console.log("id dei Guest ricevuti", data);
           //salvo gli id dei guest nella memoria locale.
-          sessionStorage.setItem('guestId', data.toString());
+          sessionStorage.setItem('guestId', data);
         });// dataConnection.send
       });
     }); // startWebCam
