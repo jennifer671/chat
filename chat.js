@@ -286,7 +286,7 @@ function startGuest() {
         keepAlive(dataConnection);
         //ricevi il messaggio del Host
         dataConnection.on('data', function(data){
-          console.log("ricevuto", dati);
+          console.log("ricevuto", data);
         });// dataConnection.send
       });
     }); // startWebCam
