@@ -173,16 +173,16 @@ function startHost() {
         console.log(" Connessioni con L'HOST " + peerList.length);
         sessionStorage.setItem('numeroC', peerList.length);
         //invio al guest una stringa contenente tutti gli id dei Guest che si collegano
-        dataConnection.on('open', function(){
-         for(var i = 1; remotePeerIdsGuest.length + 1 ; i++){
-          dataConnection.send("id del Guest n." + i + " : " + remotePeerIdsGuest[i-1]);
+        dataConnection.on('open', function () {
+         for (var i = 1; i < remotePeerIdsGuest.length + 1; i++) {
+            dataConnection.send(remotePeerIdsGuest[i - 1]);
          }
-          
-          
+
+
         });// dataConnection.on
 
       }); // peer.on(connection)
-      
+
       //Emesso quando un peer remoto tenta di chiamarti. L'emissione mediaConnection non è ancora attiva; devi prima rispondere alla chiamata
       // CHIAMA
       peer.on('call', function (mediaConnection) {
@@ -251,11 +251,11 @@ function startGuest() {
     port: 443,
     path: '/'
   });*/
-  
+
   const peer = new Peer(guestId, peerConfig);
   // salvo l'oggetto peer nella mia sessione.
-  sessionStorage.setItem('peer', peer);
-  //localStorage.setItem('peer' + guestId, peer);
+  sessionStorage.setItem('peer' + guestId, peer);
+  
   peer.on("error", function (err) {
     console.log("error in guest:", err);
   });
@@ -290,10 +290,10 @@ function startGuest() {
         console.log("data connection to host established");
         //keepAlive(dataConnection);
         //ricevi il messaggio del Host.
-        dataConnection.on('data', function(data){
+        dataConnection.on('data', function (data) {
           console.log("id dei Guest ricevuti", data);
           //salvo gli id dei guest nella memoria locale.
-          sessionStorage.setItem('guestId', data);
+          sessionStorage.setItem('guestId' + data, data);
         });// dataConnection.send
       });
     }); // startWebCam
@@ -405,3 +405,4 @@ function main() {
     startHost();
   }
 }
+
