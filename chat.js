@@ -168,7 +168,7 @@ function startHost() {
       // CONNETTI
       peer.on('connection', function (dataConnection) {
         console.log(" connessione dati con il GUEST stabilita ");
-        keepAlive(dataConnection);
+        //keepAlive(dataConnection);
         peerList.push(dataConnection.peer);
         console.log(" Connessioni con L'HOST " + peerList.length);
         sessionStorage.setItem('numeroC', peerList.length);
