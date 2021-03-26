@@ -285,7 +285,7 @@ function startGuest() {
       const dataConnection = peer.connect(hostID);
       dataConnection.on("open", function () {
         console.log("data connection to host established");
-        keepAlive(dataConnection);
+        //keepAlive(dataConnection);
         //ricevi il messaggio del Host.
         dataConnection.on('data', function(data){
           console.log("id dei Guest ricevuti", data);
