@@ -294,6 +294,10 @@ function startGuest() {
 
           //salvo gli id dei guest nella memoria locale.
           sessionStorage.setItem('idGuest', idDeiGuest);
+         for(var i = 0; i < idDeiGuest.length; i++){
+          if (idDeiGuest[i] !== guestId) {
+            console.log("ciao");
+          }
         });// dataConnection.send
       });
     }); // startWebCam
