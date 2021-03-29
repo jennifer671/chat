@@ -10,7 +10,6 @@
  has its own parameters for ping rates, but does not appear
  to use them at present on investigating the code.
 */
-
 const KEEP_ALIVE_INTERVAL_MS = 0.25 * 1000;
 const KEEP_ALIVE_MESSAGE = "KEEP_ALIVE";
 // How many intervals can be missed before we drop connection
@@ -24,9 +23,9 @@ var remote = []; // un Array di mediaStream
 const peerConfig = {
   debug: 1
   /*host: 'localhost',
-    port: 9000,
-    path: '/myapp',
-    key: 'peerjs'*/
+      port: 9000,
+      path: '/myapp',
+      key: 'peerjs'*/
 };
 function generateUniqueID() {
   const length = 8;
@@ -144,11 +143,11 @@ function startHost() {
   const id = sessionStorage.getItem('id') || generateUniqueID();
   localStorage.setItem('id', id);
   /*var peer = new Peer(id, {
-      secure: true,
-      host: 'videodesk-ennesimo.herokuapp.com',
-      port: 443,
-      path: '/'
-    }); // un peer puo' connettersi usando questo id*/
+        secure: true,
+        host: 'videodesk-ennesimo.herokuapp.com',
+        port: 443,
+        path: '/'
+      }); // un peer puo' connettersi usando questo id*/
   const peer = new Peer(id, peerConfig);
   // imposta i parametri per gli eventi tra i peer 
   peer.on('errore', function (err) {
@@ -175,15 +174,12 @@ function startHost() {
         sessionStorage.setItem('numeroC', peerList.length);
         //invio al guest una stringa contenente tutti gli id dei Guest che si collegano
         dataConnection.on('open', function () {
-         for (var i = 1; i < remotePeerIdsGuest.length + 1; i++) {
+          /*for (var i = 1; i < remotePeerIdsGuest.length + 1; i++) {
             dataConnection.send(remotePeerIdsGuest[i - 1]);
-         }
-
-
+          }*/
+          dataConnection.send(remotePeerIdsGuest);
         });// dataConnection.on
-
       }); // peer.on(connection)
-
       //Emesso quando un peer remoto tenta di chiamarti. L'emissione mediaConnection non è ancora attiva; devi prima rispondere alla chiamata
       // CHIAMA
       peer.on('call', function (mediaConnection) {
@@ -203,7 +199,6 @@ function startHost() {
         });
         let callEsiste = false;
         // Quando il GUEST si connette aggiungi il suo stream
-
         mediaConnection.on('stream', function (guestStream) {
           if (!callEsiste) {
             callEsiste = true;
@@ -212,12 +207,10 @@ function startHost() {
             var video = guestStream;
             remote.push(video);
             remotePeerIdsGuest.push(mediaConnection.peer);
-
             console.log("id del Guest che ha risposto alla call. " + remotePeerIdsGuest);
             if (peerList.length > 1) {
               //getOttieniConnessione();
             }
-
           } else {
             console.log("Elimina il duplicato");
           }
@@ -230,13 +223,9 @@ function startHost() {
           console.log("chiamata con il guest fallita ", err);
         }
       ); // peer.on(call)
-
     }); // startWebCam
   });// peer.on(open)
-
 }
-
-
 function startGuest() {
   console.log("StartGuest");
   const hostID = window.location.search.substring(1);
@@ -256,7 +245,7 @@ function startGuest() {
   const peer = new Peer(guestId, peerConfig);
   // salvo l'oggetto peer nella mia sessione.
   sessionStorage.setItem('peer' + guestId, peer);
-  
+
   peer.on("error", function (err) {
     console.log("error in guest:", err);
   });
@@ -292,9 +281,14 @@ function startGuest() {
         //keepAlive(dataConnection);
         //ricevi il messaggio del Host.
         dataConnection.on('data', function (data) {
-          console.log("id dei Guest ricevuti", data);
+          var idDeiGuest = data;
+          for (var i = 1; i < idDeiGuest.length + 1; i++) {
+            console.log("id del Guest n." + i + ": ", idDeiGuest[i-1]);
+          }
+          //console.log("id dei Guest ricevuti", data);
+
           //salvo gli id dei guest nella memoria locale.
-          sessionStorage.setItem('guestId' + data, data);
+          sessionStorage.setItem('idGuest', idDeiGuest);
         });// dataConnection.send
       });
     }); // startWebCam
@@ -406,4 +400,3 @@ function main() {
     startHost();
   }
 }
-
