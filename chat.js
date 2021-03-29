@@ -300,7 +300,7 @@ function startGuest() {
 }
 function connessioneOneToOne() {
   console.log("inizializza una connessione tra i Guest");
-  const peer = sessionStorage.getItem();
+  const peer = sessionStorage.getItem('peer');
   sessionStorage.getItem('peer');
   const idG = sessionStorage.getItem('idDeiGuest');
   peer.on("open", function (idG){
