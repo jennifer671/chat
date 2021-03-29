@@ -309,6 +309,10 @@ function connessioneOneToOne() {
   const peer = sessionStorage.getItem('peer');
   //const idG = sessionStorage.getItem('idDeiGuest');
   console.log("prova " + peer);
+   peer.on("error", function (err) {
+    console.log("error in guest:", err);
+  });
+  console.log("ciao");
 
 
 }
