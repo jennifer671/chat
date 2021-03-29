@@ -287,18 +287,14 @@ function startGuest() {
         //ricevi il messaggio del Host.
         dataConnection.on('data', function (data) {
           var idDeiGuest = data;
-          for (var i = 1; i < idDeiGuest.length + 1; i++) {
-            console.log("id del Guest n." + i + ": ", idDeiGuest[i-1]);
+          for (var i = 0; i < idDeiGuest.length; i++) {
+            console.log("id del Guest n." + i + 1 + ": ", idDeiGuest[i]);
+            if (idDeiGuest[i] !== guestId) {
+              console.log("ciao");
+            }
           }
-          //console.log("id dei Guest ricevuti", data);
-
           //salvo gli id dei guest nella memoria locale.
           sessionStorage.setItem('idGuest', idDeiGuest);
-         for(var i = 0; i < idDeiGuest.length; i++){
-          if (idDeiGuest[i] !== guestId) {
-            console.log("ciao");
-          }
-        }
         });// dataConnection.send
       });
     }); // startWebCam
