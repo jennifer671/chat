@@ -244,7 +244,7 @@ function startGuest() {
 
   const peer = new Peer(guestId, peerConfig);
   // salvo l'oggetto peer nella mia sessione.
-  sessionStorage.setItem('peer' + guestId, peer);
+  sessionStorage.setItem('peer' , peer);
 
   peer.on("error", function (err) {
     console.log("error in guest:", err);
@@ -300,7 +300,7 @@ function startGuest() {
 }
 function connessioneOneToOne() {
   console.log("inizializza una connessione tra i Guest");
-  const peer = sessionStorage.getItem('peer' + guestId);
+  const peer = sessionStorage.getItem('peer');
   const idG = sessionStorage.getItem('idDeiGuest');
   peer.on("open", function (idG){
     console.log(" stampo prova " + idG);
