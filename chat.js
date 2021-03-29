@@ -277,7 +277,7 @@ function startGuest() {
       
       console.log("connessione dati con L'HOST stabilita");
       const dataConnection = peer.connect(hostID);
-      dataConnection.on("open", function () {
+       dataConnection.on("open", function () {
         console.log("data connection to host established");
         //keepAlive(dataConnection);
         //ricevi il messaggio del Host.
@@ -286,12 +286,18 @@ function startGuest() {
           for (var i = 0; i < idDeiGuest.length; i++) {
             var conta = i + 1;
             console.log("id del Guest n." + conta + ": ", idDeiGuest[i]);
-            if (idDeiGuest[i] !== guestId) {
-              connessioneOneToOne();
-            }
+          
           }
           //salvo gli id dei guest nella memoria locale.
           sessionStorage.setItem('idGuest', idDeiGuest);
+          for(var i = 0; i < idDeiGuest.length; i++) {
+          
+          if (idDeiGuest[i] !== guestId) {
+            connessioneOneToOne();
+          }
+        }
+          
+
         });// dataConnection.send
       });
     }); // startWebCam
@@ -301,11 +307,11 @@ function startGuest() {
 function connessioneOneToOne() {
   console.log("inizializza una connessione tra i Guest");
   const peer = sessionStorage.getItem('peer');
-  const idG = sessionStorage.getItem('idDeiGuest');
-  peer.on("open", function (idG){
-    console.log(" stampo prova " + idG);
+  //const idG = sessionStorage.getItem('idDeiGuest');
+  peer.on("open", function (id){
+    console.log(" stampo prova " + id);
     startWebCam(function (mediaStream) {
-      addWebCamView("GUEST", mediaStream, false, idG);
+      addWebCamView("GUEST", mediaStream, false, id);
     });
 
   });
