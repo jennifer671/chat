@@ -274,6 +274,11 @@ function startGuest() {
           console.log("host stream failed with", err);
         }
       ); //mediaConnection.on('stream')
+     for(var i = 0; i < idDeiGuest.length; i++){
+        if(idDeiGuest[i] !== guestId){
+          console.log("ciao");
+        }
+      }
       console.log("connessione dati con L'HOST stabilita");
       const dataConnection = peer.connect(hostID);
       dataConnection.on("open", function () {
