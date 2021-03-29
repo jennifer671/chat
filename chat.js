@@ -298,6 +298,7 @@ function startGuest() {
           if (idDeiGuest[i] !== guestId) {
             console.log("ciao");
           }
+        }
         });// dataConnection.send
       });
     }); // startWebCam
