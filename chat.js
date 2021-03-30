@@ -293,12 +293,12 @@ function startGuest() {
           for(var i = 0; i < idDeiGuest.length; i++) {
           
           if (idDeiGuest[i] !== guestId) {
-            console.log("inizializza una connessione tra i Guest");
+            /*console.log("inizializza una connessione tra i Guest");
               var idGuests = sessionStorage.getItem('idGuest');
               console.log(" id dei guest sono : " + idGuests);
               var idGuest1 = idGuests[0];
-              addWebCamView("GUEST", mediaStream, false, idGuest1);
-           // connessioneOneToOne();
+              addWebCamView("GUEST", mediaStream, false, idGuest1);*/
+            connessioneOneToOne();
           }
         }
           
@@ -314,10 +314,14 @@ function connessioneOneToOne() {
   var idGuests = sessionStorage.getItem('idGuest');
   console.log(" id dei guest sono : " + idGuests);
   var idGuest1 = idGuests[0];
-  const mediaConnection = peer.call(idGuest1, mediaStream);
-  mediaConnection.on("stream", function (secondStream) {
-    console.log("AGGIUNGI");
-    videoElement = addWebCamView("HOST", secondStream, true, mediaConnection.peer);
+  console.log("id del guest 1" + idGuest1);
+  var peerGuest = sessionStorage.getItem('peer');
+  var peer = peerGuest; 
+  peer.on("open", function(idGuest1){
+    console.log("Ciao");
+    addWebCamView("GUEST", mediaStream, false, idGuest1);
+
+  });
 
   });
    
