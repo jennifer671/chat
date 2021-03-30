@@ -293,7 +293,17 @@ function startGuest() {
           for(var i = 0; i < idDeiGuest.length; i++) {
           
           if (idDeiGuest[i] !== guestId) {
-            connessioneOneToOne();
+            console.log("inizializza una connessione tra i Guest");
+              var idGuests = sessionStorage.getItem('idGuest');
+              console.log(" id dei guest sono : " + idGuests);
+              var idGuest1 = idGuests[0];
+              const mediaConnection = peer.call(idGuest1, mediaStream);
+              mediaConnection.on("stream", function (secondStream) {
+                console.log("AGGIUNGI");
+                videoElement = addWebCamView("HOST", secondStream, true, mediaConnection.peer);
+
+              });
+           // connessioneOneToOne();
           }
         }
           
