@@ -171,7 +171,7 @@ function startHost() {
         //keepAlive(dataConnection);
         peerList.push(dataConnection.peer);
         console.log(" Connessioni con L'HOST " + peerList.length);
-
+        
         //invio al guest una stringa contenente tutti gli id dei Guest che si collegano
         dataConnection.on('open', function () {
           /*for (var i = 1; i < remotePeerIdsGuest.length + 1; i++) {
@@ -244,8 +244,7 @@ function startGuest() {
 
   const peer = new Peer(guestId, peerConfig);
   // salvo l'oggetto peer nella mia sessione.
-  sessionStorage.setItem('peer', peer);
-  
+  sessionStorage.setItem('peer' , peer);
 
   peer.on("error", function (err) {
     console.log("error in guest:", err);
@@ -275,10 +274,10 @@ function startGuest() {
           console.log("host stream failed with", err);
         }
       ); //mediaConnection.on('stream')
-
+      
       console.log("connessione dati con L'HOST stabilita");
       const dataConnection = peer.connect(hostID);
-      dataConnection.on("open", function () {
+       dataConnection.on("open", function () {
         console.log("data connection to host established");
         //keepAlive(dataConnection);
         //ricevi il messaggio del Host.
@@ -287,109 +286,46 @@ function startGuest() {
           for (var i = 0; i < idDeiGuest.length; i++) {
             var conta = i + 1;
             console.log("id del Guest n." + conta + ": ", idDeiGuest[i]);
-
+          
           }
           //salvo gli id dei guest nella memoria locale.
           sessionStorage.setItem('idGuest', idDeiGuest);
-          for (var i = 0; i < idDeiGuest.length; i++) {
-
-            if (idDeiGuest[i] !== guestId) {
-             /* console.log("inizializza una connessione tra i Guest");
+          for(var i = 0; i < idDeiGuest.length; i++) {
+          
+          if (idDeiGuest[i] !== guestId) {
+            console.log("inizializza una connessione tra i Guest");
               var idGuests = sessionStorage.getItem('idGuest');
               console.log(" id dei guest sono : " + idGuests);
               var idGuest1 = idGuests[0];
-              addWebCamView("GUEST", mediaStream, false, idGuest1);*/
-              
-              //connessioneOneToOneGuest();
-              console.log("inizializza una connessione tra i Guest");
-              var idGuests = sessionStorage.getItem('idGuest');
-              console.log(" id dei guest sono : " + idGuests);
-              var idGuest1 = idGuests[0];
-              console.log("id del guest 1" + idGuest1);
-              const mediaConnection2 = peer.call(idGuest1, mediaStream);
-              mediaConnection2.on("stream", function (altroStream) {
-                if (!alreadyAddedThisCall) {
-                  alreadyAddedThisCall = true;
-                  console.log("Host risponde alla chiamata");
-                  videoElement = addWebCamView("Altro", altroStream, true, mediaConnection2.peer);
-
-                } else {
-                  console.log("elimina i duplicati");
-                }
-              },
-                function (err) {
-                  console.log("host stream failed with", err);
-                }
-              ); //mediaConnection2.on('stream')
-              const dataConnection2 = peer.connect(idGuest1);
-              dataConnection2.on('open', function () {
-                console.log("data connection ");
-              }); 
-
-
-
-            }
+              addWebCamView("GUEST", mediaStream, false, idGuest1);
+            //connessioneOneToOne();
           }
-
+        }
+          
 
         });// dataConnection.send
       });
-      ///////////////////////////////////////////////////////////
-        peer.on('connection', function (dataConnection2) {
-        console.log(" connessione dati con il GUEST2 stabilita ");
-        keepAlive(dataConnection2);
-          peer.on('call', function (mediaConnection2) {
-            console.log("GUEST2 chiamato");
-            // rispondo alla call fornendo lo stram dell'guest 1
-            mediaConnection2.answer(mediaStream);
-           
-            });
-          let callEsiste = false;
-          // Quando il GUEST si connette aggiungi il suo stream
-          mediaConnection.on('stream', function (guestStream) {
-            if (!callEsiste) {
-              callEsiste = true;
-              console.log(" Video del GUEST trasmesso ");
-              videoElement = addWebCamView("GUEST", guestStream, true, mediaConnection2.peer);
-               } else {
-                console.log("elimina i duplicati");
-              }
-
-            });
-
-      }); // dataConnection. 
-      //////////////////////////////////////////////////////////
     }); // startWebCam
-    
 
   }); // peer.on('open')
-
 }
-function connessioneOneToOneGuest() {
-  console.log("inizializza una connessione tra i Guest");
+function connessioneOneToOne() {
+   console.log("inizializza una connessione tra i Guest");
   var idGuests = sessionStorage.getItem('idGuest');
   console.log(" id dei guest sono : " + idGuests);
   var idGuest1 = idGuests[0];
   console.log("id del guest 1" + idGuest1);
-  const mediaConnection2 = peer.call(idGuest1, mediaStream);
-  mediaConnection2.on("stream", function (altroStream) {
-    if (!alreadyAddedThisCall) {
-      alreadyAddedThisCall = true;
-      console.log("Host risponde alla chiamata");
-      videoElement = addWebCamView("Altro", altroStream, true, mediaConnection2.peer);
-      
-    } else {
-      console.log("elimina i duplicati");
-    }
-  },
-    function (err) {
-      console.log("host stream failed with", err);
-    }
-  ); //mediaConnection2.on('stream')
-  const dataConnection2 = peer.connect(idGuest1);
-  dataConnection2.on('open',function () {
-    console.log("data connection ");
-  }); 
+  var peerGuest = sessionStorage.getItem('peer');
+  var peer = peerGuest; 
+  peer.on("open", function(idGuest1){
+    console.log("Ciao");
+    addWebCamView("GUEST", mediaStream, false, idGuest1);
+
+  });
+
+
+   
+
 
 }
 
@@ -403,3 +339,4 @@ function main() {
     startHost();
   }
 }
+        
