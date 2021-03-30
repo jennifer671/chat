@@ -306,13 +306,8 @@ function startGuest() {
 }
 function connessioneOneToOne() {
   console.log("inizializza una connessione tra i Guest");
-  const peer = sessionStorage.getItem('peer');
-  //const idG = sessionStorage.getItem('idDeiGuest');
-  console.log("prova " + peer);
-   peer.on("error", function (err) {
-    console.log("error in guest:", err);
-  });
-  console.log("ciao");
+  
+  addWebCamView("GUEST", mediaStream, false, id);
 
 
 }
