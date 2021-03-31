@@ -208,8 +208,8 @@ function startHost() {
             callEsiste = true;
             console.log(" Video del GUEST trasmesso ");
             videoElement = addWebCamView("GUEST", guestStream, true, mediaConnection.peer);
-            var video = guestStream;
-            remote.push(video);
+            
+            remote.push(videoElement);
             remotePeerIdsGuest.push(mediaConnection.peer);
             console.log("id del Guest che ha risposto alla call. " + remotePeerIdsGuest);
             
