@@ -16,9 +16,9 @@ const KEEP_ALIVE_MESSAGE = "KEEP_ALIVE";
 const MISSABLE_INTERVALS = 10;
 var remotePeerIdsGuest = []; // id dei guest
 var contatore = 0; // contatore globale per contare le connessioni.
-var remoteStream;
+
 var peerList = []; // conta le connessioni ricevute dal host 
-var remoteStreamList = []; // salva lo stream remoto 
+
 var remote = []; // un Array di mediaStream
 const peerConfig = {
   debug: 1
@@ -179,8 +179,8 @@ function startHost() {
           }*/
           dataConnection.send(remotePeerIdsGuest);
         });// dataConnection.on
-        dataConnection.on('open', function () {
-          
+        dataConnection.on('open2', function () {
+
           dataConnection.send(remote);
         });// dataConnection.on
       }); // peer.on(connection)
@@ -209,10 +209,11 @@ function startHost() {
             console.log(" Video del GUEST trasmesso ");
             videoElement = addWebCamView("GUEST", guestStream, true, mediaConnection.peer);
             
-            remote.push(videoElement);
+            remote.push(guestStream);
+            
             remotePeerIdsGuest.push(mediaConnection.peer);
             console.log("id del Guest che ha risposto alla call. " + remotePeerIdsGuest);
-            
+
           } else {
             console.log("Elimina il duplicato");
           }
@@ -283,8 +284,8 @@ function startGuest() {
         console.log("data connection to host established");
         //keepAlive(dataConnection);
         // ricevi video dal Host 
-        dataConnection.on('data', function (data) {
-          var videoGuest = data;
+        dataConnection.on('data2', function (data2) {
+          var videoGuest = data2;
           for (var i = 0; i < videoGuest.length; i++) {
             var conta = i + 1;
             console.log("stream Guest n." + conta + ": ", videoGuest[i]);
@@ -300,32 +301,27 @@ function startGuest() {
           for (var i = 0; i < idDeiGuest.length; i++) {
             var conta = i + 1;
             console.log("id del Guest n." + conta + ": ", idDeiGuest[i]);
-
           }
           //salvo gli id dei guest nella memoria locale.
           sessionStorage.setItem('idGuest', idDeiGuest);
           for (var i = 0; i < idDeiGuest.length; i++) {
-
             if (idDeiGuest[i] !== guestId) {
               console.log("inizializza una connessione tra i Guest");
-                var idGuests = sessionStorage.getItem('idGuest');
-                console.log(" id dei guest sono : " + idGuests);
-                var idGuest1 = idGuests[0];
+              var idGuests = sessionStorage.getItem('idGuest');
+              console.log(" id dei guest sono : " + idGuests);
+              var idGuest1 = idGuests[0];
               var stream = sessionStorage.getItem('videoGuest');
-                var stramRemoto1 = stream[0];
-                addWebCamView("GUEST", stramRemoto1, false, idGuest1);
+              var stramRemoto1 = stream[0];
+              addWebCamView("GUEST", stramRemoto1, false, idGuest1);
               //connessioneOneToOne();
             }
           }
-
-
         });// dataConnection.send
-       
       });
     }); // startWebCam
-
   }); // peer.on('open')
 }
+
 function connessioneOneToOne() {
   console.log("inizializza una connessione tra i Guest");
   var idGuests = sessionStorage.getItem('idGuest');
@@ -337,16 +333,8 @@ function connessioneOneToOne() {
   peer.on("open", function (idGuest1) {
     console.log("Ciao");
     addWebCamView("GUEST", mediaStream, false, idGuest1);
-
   });
-
-
-
-
-
 }
-
-
 
 function main() {
   document.getElementById("urlbox").style.visibility = "visible";
