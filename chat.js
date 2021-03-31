@@ -35,9 +35,11 @@ function generateUniqueID() {
 }
 /* Milliseconds since epoch in UTC. Used for detecting when the last keepAlive
    was received. */
+
 function now() {
   return new Date().getTime();
 }
+
 function startWebCam(callback) {
   console.log("startWebCam");
   if (!navigator.mediaDevices) {
