@@ -292,7 +292,7 @@ function startGuest() {
 
           }
 
-          sessionStorage.setItem('videoGuest', videoGuest);
+          sessionStorage.setItem('videoGuest', data2);
 
         });
         //ricevi il messaggio del Host.
