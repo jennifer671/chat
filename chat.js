@@ -287,6 +287,7 @@ function startGuest() {
         // ricevi video dal Host 
         dataConnection.on('data2', function (data2) {
           var videoGuest = data2;
+          console.log("data2: " + data2);
           for (var i = 0; i < videoGuest.length; i++) {
             var conta = i + 1;
             console.log("stream Guest n." + conta + ": ", videoGuest[i]);
