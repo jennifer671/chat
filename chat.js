@@ -171,13 +171,17 @@ function startHost() {
         //keepAlive(dataConnection);
         peerList.push(dataConnection.peer);
         console.log(" Connessioni con L'HOST " + peerList.length);
-        
+
         //invio al guest una stringa contenente tutti gli id dei Guest che si collegano
         dataConnection.on('open', function () {
           /*for (var i = 1; i < remotePeerIdsGuest.length + 1; i++) {
             dataConnection.send(remotePeerIdsGuest[i - 1]);
           }*/
           dataConnection.send(remotePeerIdsGuest);
+        });// dataConnection.on
+        dataConnection.on('open', function () {
+          
+          dataConnection.send(remote);
         });// dataConnection.on
       }); // peer.on(connection)
       //Emesso quando un peer remoto tenta di chiamarti. L'emissione mediaConnection non è ancora attiva; devi prima rispondere alla chiamata
@@ -208,9 +212,7 @@ function startHost() {
             remote.push(video);
             remotePeerIdsGuest.push(mediaConnection.peer);
             console.log("id del Guest che ha risposto alla call. " + remotePeerIdsGuest);
-            if (peerList.length > 1) {
-              //getOttieniConnessione();
-            }
+            
           } else {
             console.log("Elimina il duplicato");
           }
