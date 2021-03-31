@@ -27,7 +27,6 @@ const peerConfig = {
       path: '/myapp',
       key: 'peerjs'*/
 };
-
 function generateUniqueID() {
   const length = 8;
   const prefix = "xc";
@@ -178,8 +177,8 @@ function startHost() {
           /*for (var i = 1; i < remotePeerIdsGuest.length + 1; i++) {
             dataConnection.send(remotePeerIdsGuest[i - 1]);
           }*/
-          //dataConnection.send(remotePeerIdsGuest);
-          dataConnection.send(remote);
+          dataConnection.send(remotePeerIdsGuest);
+          //dataConnection.send(remote);
         });// dataConnection.on
         
       }); // peer.on(connection)
@@ -210,7 +209,7 @@ function startHost() {
             console.log(" Video del GUEST trasmesso ");
             videoElement = addWebCamView("GUEST", guestStream, true, mediaConnection.peer);
             
-            remote.push(mediaConnection);
+           // remote.push(mediaConnection);
 
             
             remotePeerIdsGuest.push(mediaConnection.peer);
@@ -292,7 +291,7 @@ function startGuest() {
         //ricevi id dei guest dal Host.
         dataConnection.on('data', function (data) {
 
-         /* var idDeiGuest = data;
+         var idDeiGuest = data;
           for (var i = 0; i < idDeiGuest.length; i++) {
             var conta = i + 1;
             console.log("id del Guest n." + conta + ": ", idDeiGuest[i]);
@@ -304,16 +303,19 @@ function startGuest() {
 
             if (idDeiGuest[i] !== guestId) {
               console.log("inizializza una connessione tra i Guest");
-              var idGuests = sessionStorage.getItem('idGuest');
-              console.log(" id dei guest sono : " + idGuests);
-              var idGuest1 = idGuests[0];
-              var stream = sessionStorage.getItem('videoGuest');
-              var stramRemoto1 = stream[0];
-              addWebCamView("GUEST", stramRemoto1, false, idGuest1);
+              // definisco una nuova data Connection verso il Guest2
+              var guestArray = sessionStorage.getItem('idGuest');
+              var guestID = guestArray[0];
+              console.log(" id del guest remoto " + guestID);
+              const dataConnection2 = peer.connect(guestID);
+              dataConnection2.on("open", function(){
+                console.log("Altra connessione stabilita");
+              });
+              
               //connessioneOneToOne();
             }
-          }*/
-            var guest = data;
+          }
+            /*var guest = data;
             console.log("ciao");
             for(var i = 0; i < guest.length; i++) {
               var conta = i +1;
@@ -330,11 +332,15 @@ function startGuest() {
               addWebCamView("GUEST", stream, false, idDelGuest);
               //connessioneOneToOne();
             }
-          }
+          }*/
           
         });// dataConnection.send
 
       });
+      peer.on('connection', function (dataConnection2) {
+        console.log(" connessione dati con il GUEST2 stabilita ");
+      });
+       
     }); // startWebCam
 
   }); // peer.on('open')
