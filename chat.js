@@ -304,9 +304,8 @@ function startGuest() {
             if (idDeiGuest[i] !== guestId) {
               console.log("inizializza una connessione tra i Guest");
               // definisco una nuova data Connection verso il Guest2
-              var guestArray = sessionStorage.getItem('idGuest');
-              var guestID = guestArray[0];
-              console.log(" id del guest remoto " + guestID);
+              var guestID = idDeiGuest[0];
+              console.log(" id del guest remoto 1 " + guestID);
               const dataConnection2 = peer.connect(guestID);
               dataConnection2.on("open", function(){
                 console.log("Altra connessione stabilita");
