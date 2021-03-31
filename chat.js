@@ -313,6 +313,7 @@ function startGuest() {
             }
           }*/
             var guest = data;
+            console.log("ciao");
             for(var i = 0; i < guest.length; i++) {
               var conta = i +1;
               var idDelGuest = data.peer;
