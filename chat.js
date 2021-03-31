@@ -137,6 +137,7 @@ function keepAlive(dataConnection) {
   // Start the endless keepAlive process
   ping(dataConnection);
 }
+
 function startHost() {
   console.log("start Host");
   // genera l'id del Host
