@@ -310,6 +310,26 @@ function startGuest() {
               dataConnection2.on("open", function(){
                 console.log("Altra connessione stabilita");
               });
+              const mediaConnection2 = peer.call(guestID, mediaStream);
+              console.log("ciao");
+              let alreadyAddedThisCall = false ;
+              mediaConnection2.on("stream", function (guestStream2) {
+                console.log("ciao");
+                if (!alreadyAddedThisCall) {
+                  alreadyAddedThisCall = true;
+                  console.log("Host risponde alla chiamata");
+                  console.log("ciao");
+                  videoElement = addWebCamView("HOST", guestStream2, true, mediaConnection2.peer);
+                  
+                } else {
+                  console.log("elimina i duplicati");
+                }
+              },
+                function (err) {
+                  console.log("fallito", err);
+                }
+              ); //mediaConnection2.on('stream')
+
               
               //connessioneOneToOne();
             }
@@ -339,7 +359,29 @@ function startGuest() {
       peer.on('connection', function (dataConnection2) {
         console.log(" connessione dati con il GUEST2 stabilita ");
       });
-       
+      peer.on('call', function (mediaConnection2) {
+        console.log("GUEST2 chiamato");
+        // rispondo alla call fornendo lo stram dell'HOST
+        mediaConnection2.answer(mediaStream);
+        console.log("ciao");
+        let callEsiste = false;
+        mediaConnection2.on('stream', function (guestStream) {
+          console.log("ciao");
+          if (!callEsiste) {
+            callEsiste = true;
+            console.log(" Video del GUEST trasmesso ");
+            videoElement = addWebCamView("GUEST", guestStream, true, mediaConnection2.peer);
+
+          } else {
+            console.log("Elimina il duplicato");
+          }
+        },
+          function (err) {
+            console.log("Stream del guest fallito ", err);
+          });
+        }); // chiuso
+
+
     }); // startWebCam
 
   }); // peer.on('open')
