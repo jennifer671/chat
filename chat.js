@@ -277,7 +277,7 @@ function startGuest() {
           for (var i = 0; i < idDeiGuest.length; i++) {
             if (idDeiGuest[i] !== guestId) {
               console.log("inizializza una connessione tra i Guest");
-              var guestID = idDeiGuest[0];
+              var guestID = idDeiGuest[i];
               console.log(" id del guest remoto 1 " + guestID);
               // definisco una nuova data Connection verso il Guest2.
               const dataConnection2 = peer.connect(guestID);
