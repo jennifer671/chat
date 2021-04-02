@@ -288,7 +288,7 @@ function startGuest() {
               const mediaConnection2 = peer.call(guestID, mediaStream);
               let callEsiste = false;
               mediaConnection2.on("stream", function (guestStream2) {
-                
+
                 if (!callEsiste) {
                   callEsiste = true;
                   console.log("Host risponde alla chiamata");
@@ -304,6 +304,30 @@ function startGuest() {
               ); //mediaConnection2.on('stream')
 
             }
+          }
+          if (idDeiGuest[i] !== idDeiGuest[i+1]){
+            // creo la cannessione e rispondo al evento call lanciata dal GUEST2.
+            peer.on('connection', function (dataConnection2) {
+              console.log(" connessione dati con il GUEST2 stabilita ");
+            });
+            peer.on('call', function (mediaConnection2) {
+              console.log("GUEST2 chiamato");
+              // rispondo alla call fornendo lo stram dell'Guest1
+              mediaConnection2.answer(mediaStream);
+              let callEsiste = false;
+              mediaConnection2.on('stream', function (guestStream) {
+                if (!callEsiste) {
+                  callEsiste = true;
+                  console.log(" Video del GUEST trasmesso ");
+                  videoElement = addWebCamView("GUEST", guestStream, true, mediaConnection2.peer);
+                } else {
+                  console.log("Elimina il duplicato");
+                }
+              },
+                function (err) {
+                  console.log("Stream del guest fallito ", err);
+                });
+            }); // chiuso
           }
 
         });// dataConnection.send
@@ -332,7 +356,7 @@ function startGuest() {
           });
       }); // chiuso
     }); // startWebCam
-  }); // peer.on('open')
+  }); // peer.on('open') ///////////////////////////////////////////
 }
 
 
