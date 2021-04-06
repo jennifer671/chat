@@ -18,12 +18,12 @@ var remotePeerIdsGuest = []; // Array dei guest connessi.
 var peerList = []; // Array connessioni ricevute dal host. 
 var contatore = 0;
 
-/*function closeHandler() {
+function closeHandler() {
   Enabler.reportManualClose();
   Enabler.close();
 }
 
-document.getElementById('close-btn').addEventListener('click', closeHandler, false);*/
+document.getElementById('close-btn').addEventListener('click', closeHandler, false);
 
 
 
