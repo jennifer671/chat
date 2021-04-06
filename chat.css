@@ -79,3 +79,19 @@ div#welcome {
     text-align: center;
     top: 30%;
 }
+
+
+
+
+
+#close-btn {
+  position: absolute;
+  width: 20px;
+  height: 18px;
+  top: 0px;
+  left: 278px;
+  cursor: pointer;
+  z-index:220;
+  background-image: url('close.png');
+  background-repeat: no-repeat;
+}
