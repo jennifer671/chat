@@ -164,7 +164,7 @@ function startHost() {
       // CONNETTI
       peer.on('connection', function (dataConnection) {
         console.log(" connessione dati con il GUEST stabilita ");
-        keepAlive(dataConnection);
+        //keepAlive(dataConnection);
         peerList.push(dataConnection.peer);
         console.log(" Connessioni con L'HOST " + peerList.length);
         //L'Host invia al guest una stringa contenente tutti gli id dei Guest che si connessi.
@@ -264,7 +264,7 @@ function startGuest() {
       const dataConnection = peer.connect(hostID);
       dataConnection.on("open", function () {
         console.log("connessione dati con L'HOST stabilita");
-        keepAlive(dataConnection);
+       // keepAlive(dataConnection);
         //ricevi id dei guest dal Host.
         dataConnection.on('data', function (data) {
           var idDeiGuest = data;
@@ -310,7 +310,7 @@ function startGuest() {
             // creo la cannessione e rispondo al evento call lanciata dal GUEST2.
             peer.on('connection', function (dataConnection2) {
               console.log(" connessione dati con il GUEST2 stabilita ");
-              keepAlive(dataConnection2);
+             // keepAlive(dataConnection2);
             });
             peer.on('call', function (mediaConnection2) {
               console.log("GUEST2 chiamato");
@@ -338,7 +338,7 @@ function startGuest() {
       // creo la cannessione e rispondo al evento call lanciata dal GUEST2.
       peer.on('connection', function (dataConnection2) {
         console.log(" connessione dati con il GUEST2 stabilita ");
-        keepAlive(dataConnection2);
+       // keepAlive(dataConnection2);
       });
       peer.on('call', function (mediaConnection2) {
         console.log("GUEST2 chiamato");
