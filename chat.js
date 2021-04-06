@@ -16,6 +16,17 @@ const KEEP_ALIVE_MESSAGE = "KEEP_ALIVE";
 const MISSABLE_INTERVALS = 10;
 var remotePeerIdsGuest = []; // Array dei guest connessi.
 var peerList = []; // Array connessioni ricevute dal host. 
+var contatore = 0;
+
+/*function closeHandler() {
+  Enabler.reportManualClose();
+  Enabler.close();
+}
+
+document.getElementById('close-btn').addEventListener('click', closeHandler, false);*/
+
+
+
 const peerConfig = {
   debug: 1
   /*host: 'localhost',
@@ -264,7 +275,7 @@ function startGuest() {
       const dataConnection = peer.connect(hostID);
       dataConnection.on("open", function () {
         console.log("connessione dati con L'HOST stabilita");
-       // keepAlive(dataConnection);
+        //keepAlive(dataConnection);
         //ricevi id dei guest dal Host.
         dataConnection.on('data', function (data) {
           var idDeiGuest = data;
@@ -310,7 +321,7 @@ function startGuest() {
             // creo la cannessione e rispondo al evento call lanciata dal GUEST2.
             peer.on('connection', function (dataConnection2) {
               console.log(" connessione dati con il GUEST2 stabilita ");
-             // keepAlive(dataConnection2);
+              //keepAlive(dataConnection2);
             });
             peer.on('call', function (mediaConnection2) {
               console.log("GUEST2 chiamato");
@@ -338,7 +349,7 @@ function startGuest() {
       // creo la cannessione e rispondo al evento call lanciata dal GUEST2.
       peer.on('connection', function (dataConnection2) {
         console.log(" connessione dati con il GUEST2 stabilita ");
-       // keepAlive(dataConnection2);
+        //keepAlive(dataConnection2);
       });
       peer.on('call', function (mediaConnection2) {
         console.log("GUEST2 chiamato");
@@ -364,6 +375,7 @@ function startGuest() {
         console.log("decrementa il numero di ospiti");
         var variabile = localStorage.getItem("idDeiGuest");
         var confronto = variabile.length;
+
         contatore = contatore - 1;
         if (contatore < confronto) {
           confronto.pop();
