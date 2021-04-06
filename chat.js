@@ -193,7 +193,7 @@ function startHost() {
           if (contatore < variabile) {
             peerList.pop();
             console.log("connessioni " + peerList.length);
-            window.close();
+           // window.close();
             console.log("Chiamata chiusa");
             videoElement.remove();
           }
