@@ -20,6 +20,8 @@ var contatore = 0;
 
 
 
+
+
 const peerConfig = {
   debug: 1
   /*host: 'localhost',
@@ -191,8 +193,14 @@ function startHost() {
           if (contatore < variabile) {
             peerList.pop();
             console.log("connessioni " + peerList.length);
+            window.close();
+            console.log("Chiamata chiusa");
+            videoElement.remove();
           }
+          
         });
+        
+        
         let callEsiste = false;
         // Quando il GUEST si connette aggiungi il suo stream
         mediaConnection.on('stream', function (guestStream) {
@@ -209,6 +217,7 @@ function startHost() {
           function (err) {
             console.log("Stream del guest fallito ", err);
           });
+        
       },
         function (err) {
           console.log("chiamata con il guest fallita ", err);
@@ -361,20 +370,22 @@ function startGuest() {
           function (err) {
             console.log("Stream del guest fallito ", err);
           });
+        mediaConnection2.on("close", function () {
+          console.log("Un Guest ha abbandonato la call");
+          console.log("decrementa il numero di ospiti");
+          var variabile = localStorage.getItem("idDeiGuest");
+          var confronto = variabile.length;
+
+          contatore = contatore - 1;
+          if (contatore < confronto) {
+            confronto.pop();
+            console.log("Connessioni Totali  " + confronto.length);
+            videoElement.remove();
+          }
+        }); 
       }); // mediaConnection2.on
       // decremento il numero di guest che lasciano la chiamata
-      mediaConnection2.on("close", function () {
-        console.log("Un Guest ha abbandonato la call");
-        console.log("decrementa il numero di ospiti");
-        var variabile = localStorage.getItem("idDeiGuest");
-        var confronto = variabile.length;
-
-        contatore = contatore - 1;
-        if (contatore < confronto) {
-          confronto.pop();
-          console.log("Connessioni Totali  " + confronto.length);
-        }
-      }); 
+      
     }); // startWebCam
   }); // peer.on('open') 
 }
