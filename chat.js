@@ -164,7 +164,7 @@ function startHost() {
       // CONNETTI
       peer.on('connection', function (dataConnection) {
         console.log(" connessione dati con il GUEST stabilita ");
-        //keepAlive(dataConnection);
+        keepAlive(dataConnection);
         peerList.push(dataConnection.peer);
         console.log(" Connessioni con L'HOST " + peerList.length);
         //L'Host invia al guest una stringa contenente tutti gli id dei Guest che si connessi.
@@ -264,7 +264,7 @@ function startGuest() {
       const dataConnection = peer.connect(hostID);
       dataConnection.on("open", function () {
         console.log("connessione dati con L'HOST stabilita");
-        //keepAlive(dataConnection);
+        keepAlive(dataConnection);
         //ricevi id dei guest dal Host.
         dataConnection.on('data', function (data) {
           var idDeiGuest = data;
@@ -305,10 +305,12 @@ function startGuest() {
 
             }
           }
-          if (idDeiGuest[i] !== idDeiGuest[i+1]){
+          // verifico la presenza di altri Guest.
+          if (idDeiGuest[i] !== idDeiGuest[i + 1]) {
             // creo la cannessione e rispondo al evento call lanciata dal GUEST2.
             peer.on('connection', function (dataConnection2) {
               console.log(" connessione dati con il GUEST2 stabilita ");
+              keepAlive(dataConnection2);
             });
             peer.on('call', function (mediaConnection2) {
               console.log("GUEST2 chiamato");
@@ -327,7 +329,7 @@ function startGuest() {
                 function (err) {
                   console.log("Stream del guest fallito ", err);
                 });
-            }); // chiuso
+            }); // mediaConnection2.on(Guest1)
           }
 
         });// dataConnection.send
@@ -336,6 +338,7 @@ function startGuest() {
       // creo la cannessione e rispondo al evento call lanciata dal GUEST2.
       peer.on('connection', function (dataConnection2) {
         console.log(" connessione dati con il GUEST2 stabilita ");
+        keepAlive(dataConnection2);
       });
       peer.on('call', function (mediaConnection2) {
         console.log("GUEST2 chiamato");
@@ -354,9 +357,21 @@ function startGuest() {
           function (err) {
             console.log("Stream del guest fallito ", err);
           });
-      }); // chiuso
+      }); // mediaConnection2.on
+      // decremento il numero di guest che lasciano la chiamata
+      mediaConnection2.on("close", function () {
+        console.log("Un Guest ha abbandonato la call");
+        console.log("decrementa il numero di ospiti");
+        var variabile = localStorage.getItem("idDeiGuest");
+        var confronto = variabile.length;
+        contatore = contatore - 1;
+        if (contatore < confronto) {
+          confronto.pop();
+          console.log("Connessioni Totali  " + confronto.length);
+        }
+      }); 
     }); // startWebCam
-  }); // peer.on('open') ///////////////////////////////////////////
+  }); // peer.on('open') 
 }
 
 
