@@ -378,7 +378,7 @@ function startGuest() {
 
           contatore = contatore - 1;
           if (contatore < confronto) {
-            confronto.pop();
+            //confronto.pop();
             console.log("Connessioni Totali  " + confronto.length);
             videoElement.remove();
           }
