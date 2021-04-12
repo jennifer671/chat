@@ -79,12 +79,21 @@ div#welcome {
     text-align: center;
     top: 30%;
 }
-#chiusura {
-width : 100%;
-height : 20px;
-text-align : right;
-position:absolute;
-bottom:0;
+#footer_bar {
+    width: 100%;
+    /* posizionamento in fondo alla pagina */
+    position: fixed;
+    bottom: 0;
+    left : 0;
+    right : 0;
+    height: 50px;
+    border-top: 1px;
+    overflow: hidden;
+    display: table;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    
 }
 
 
