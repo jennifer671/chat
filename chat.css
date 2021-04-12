@@ -79,10 +79,12 @@ div#welcome {
     text-align: center;
     top: 30%;
 }
-div#chiusura {
-    position: absolute;
-    right:    0;
-    bottom:   0;
+#chiusura {
+width : 100%;
+height : 20px;
+text-align : right;
+position:absolute;
+bottom:0;
 }
 
 
