@@ -18,7 +18,12 @@ var remotePeerIdsGuest = []; // Array dei guest connessi.
 var peerList = []; // Array connessioni ricevute dal host. 
 var contatore = 0;
 
-
+function chiudi_finestra() {
+  if (confirm("Vuoi chiudere la chiamata?")) {
+    window.location.reload();
+    console.log("chiuso");
+  }
+}
 
 
 
@@ -193,7 +198,6 @@ function startHost() {
           if (contatore < variabile) {
             peerList.pop();
             console.log("connessioni " + peerList.length);
-           // window.close();
             console.log("Chiamata chiusa");
             videoElement.remove();
           }
@@ -373,15 +377,15 @@ function startGuest() {
         mediaConnection2.on("close", function () {
           console.log("Un Guest ha abbandonato la call");
           console.log("decrementa il numero di ospiti");
-         var variabile = sessionStorage.getItem("idGuest");
-          var confronto = variabile.length;
-
-          contatore = contatore - 1;
+          var variabile = sessionStorage.getItem("idGuest");
+          videoElement.remove();
+          console.log("Connessioni Totali  " + variabile.length);
+          /*contatore = contatore - 1;
           if (contatore < confronto) {
             //confronto.pop();
             console.log("Connessioni Totali  " + confronto.length);
             videoElement.remove();
-          }
+          }*/
         }); 
       }); // mediaConnection2.on
       // decremento il numero di guest che lasciano la chiamata
