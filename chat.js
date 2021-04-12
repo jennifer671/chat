@@ -188,7 +188,7 @@ function startHost() {
         mediaConnection.on("close", function () {
           console.log("Il guest ha lasciato la chiamata");
           console.log("decrementa il numero di ospiti");
-          var variabile = peerList.length;
+         /* var variabile = peerList.length;
           contatore = contatore - 1;
           if (contatore < variabile) {
             peerList.pop();
@@ -196,7 +196,7 @@ function startHost() {
            // window.close();
             console.log("Chiamata chiusa");
             videoElement.remove();
-          }
+          }*/
           
         });
         
