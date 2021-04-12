@@ -79,14 +79,11 @@ div#welcome {
     text-align: center;
     top: 30%;
 }
-#chiusura {
-    width: 100%;
-    /* posizionamento in fondo alla pagina */
-    position: fixed;
-    bottom: 0;
-    overflow: hidden;
+div#chiusura {
+    position: absolute;
+    right:    0;
+    bottom:   0;
 }
-
 
 
 
