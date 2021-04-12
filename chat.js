@@ -373,7 +373,7 @@ function startGuest() {
         mediaConnection2.on("close", function () {
           console.log("Un Guest ha abbandonato la call");
           console.log("decrementa il numero di ospiti");
-        /*  var variabile = sessionStorage.getItem("idGuest");
+         var variabile = sessionStorage.getItem("idGuest");
           var confronto = variabile.length;
 
           contatore = contatore - 1;
@@ -381,7 +381,7 @@ function startGuest() {
             //confronto.pop();
             console.log("Connessioni Totali  " + confronto.length);
             videoElement.remove();
-          }*/
+          }
         }); 
       }); // mediaConnection2.on
       // decremento il numero di guest che lasciano la chiamata
