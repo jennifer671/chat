@@ -10,7 +10,6 @@
  has its own parameters for ping rates, but does not appear
  to use them at present on investigating the code.
 */
-
 const KEEP_ALIVE_INTERVAL_MS = 0.25 * 1000;
 const KEEP_ALIVE_MESSAGE = "KEEP_ALIVE";
 // How many intervals can be missed before we drop connection
@@ -31,7 +30,6 @@ const peerConfig = {
           path: '/myapp',
           key: 'peerjs'*/
 };
-
 function generateUniqueID() {
   const length = 8;
   const prefix = "xc";
@@ -343,18 +341,6 @@ function startGuest() {
       peer.on('call', function (mediaConnection2) {
         console.log("GUEST2 chiamato");
         // rispondo alla call fornendo lo stram dell'Guest1
-       mediaConnection2.on("close", function () {
-          console.log("Un Guest ha abbandonato la call");
-          console.log("decrementa il numero di ospiti");
-          const videoElementUscente = document.getElementById("_" + mediaConnection2.peer);
-          videoElementUscente.remove();
-          /*contatore = contatore - 1;
-                    if (contatore < confronto) {
-                      //confronto.pop();
-                      console.log("Connessioni Totali  " + confronto.length);
-                      videoElement.remove();
-                    }*/
-        });
         mediaConnection2.answer(mediaStream);
         let callEsiste = false;
         mediaConnection2.on('stream', function (guestStream) {
@@ -369,7 +355,24 @@ function startGuest() {
           function (err) {
             console.log("Stream del guest fallito ", err);
           });
-        
+        mediaConnection2.on("close", function () {
+          console.log("Un Guest ha abbandonato la call");
+          console.log("decrementa il numero di ospiti");
+          const videoElementUscente = document.getElementById("_" + mediaConnection2.peer);
+          videoElementUscente.remove();
+          var array = sessionStorage.getItem("idGuest");
+          var indice = array.indexOf(mediaConnection2.peer);
+          if (indice > -1) {
+            array.splice(indice, 1);
+          }
+          sessionStorage.setItem("idGuest", array);
+          /*contatore = contatore - 1;
+                    if (contatore < confronto) {
+                      //confronto.pop();
+                      console.log("Connessioni Totali  " + confronto.length);
+                      videoElement.remove();
+                    }*/
+        });
       }); // mediaConnection2.on
       // decremento il numero di guest che lasciano la chiamata
     }); // startWebCam
