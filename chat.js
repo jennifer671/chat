@@ -187,12 +187,19 @@ function startHost() {
         mediaConnection.answer(mediaStream);
         // chiudi 
         mediaConnection.on("close", function () {
-          console.log("Il guest " + mediaConnection.peer + " ha lasciato la chiamata");
+          var idGuestUscente = mediaConnection.peer;
+          console.log("Il guest " + idGuestUscente  + " ha lasciato la chiamata");
           console.log("decrementa il numero di ospiti");
           peerList.pop();
           console.log("connessioni " + peerList.length);
           const videoElementUscente = document.getElementById("_" + mediaConnection.peer);
           videoElementUscente.remove();
+          var indice = remotePeerIdsGuest.indexOf(mediaConnection.peer);
+          if (indice > -1) {
+            remotePeerIdsGuest.splice(indice, 1);
+          }
+          console.log("eliminato");
+          console.log("id del Guest presenti nella call. " + remotePeerIdsGuest);
         });
         let callEsiste = false;
         // Quando il GUEST si connette aggiungi il suo stream
