@@ -342,6 +342,18 @@ function startGuest() {
       peer.on('call', function (mediaConnection2) {
         console.log("GUEST2 chiamato");
         // rispondo alla call fornendo lo stram dell'Guest1
+       mediaConnection2.on("close", function () {
+          console.log("Un Guest ha abbandonato la call");
+          console.log("decrementa il numero di ospiti");
+          const videoElementUscente = document.getElementById("_" + mediaConnection2.peer);
+          videoElementUscente.remove();
+          /*contatore = contatore - 1;
+                    if (contatore < confronto) {
+                      //confronto.pop();
+                      console.log("Connessioni Totali  " + confronto.length);
+                      videoElement.remove();
+                    }*/
+        });
         mediaConnection2.answer(mediaStream);
         let callEsiste = false;
         mediaConnection2.on('stream', function (guestStream) {
@@ -356,18 +368,7 @@ function startGuest() {
           function (err) {
             console.log("Stream del guest fallito ", err);
           });
-        mediaConnection2.on("close", function () {
-          console.log("Un Guest ha abbandonato la call");
-          console.log("decrementa il numero di ospiti");
-          const videoElementUscente = document.getElementById("_" + mediaConnection2.peer);
-          videoElementUscente.remove();
-          /*contatore = contatore - 1;
-                    if (contatore < confronto) {
-                      //confronto.pop();
-                      console.log("Connessioni Totali  " + confronto.length);
-                      videoElement.remove();
-                    }*/
-        });
+        
       }); // mediaConnection2.on
       // decremento il numero di guest che lasciano la chiamata
     }); // startWebCam
