@@ -379,7 +379,7 @@ function startGuest() {
           console.log("decrementa il numero di ospiti");
           var variabile = sessionStorage.getItem("idGuest");
           videoElement.remove();
-          console.log("Connessioni Totali  " + variabile.length);
+         // console.log("Connessioni Totali  " + variabile.length);
           /*contatore = contatore - 1;
           if (contatore < confronto) {
             //confronto.pop();
