@@ -17,22 +17,18 @@ const MISSABLE_INTERVALS = 10;
 var remotePeerIdsGuest = []; // Array dei guest connessi.
 var peerList = []; // Array connessioni ricevute dal host. 
 var contatore = 0;
-
 function chiudi_finestra() {
   if (confirm("Vuoi chiudere la chiamata?")) {
     window.location.reload();
     console.log("chiuso");
   }
 }
-
-
-
 const peerConfig = {
   debug: 1
   /*host: 'localhost',
-        port: 9000,
-        path: '/myapp',
-        key: 'peerjs'*/
+          port: 9000,
+          path: '/myapp',
+          key: 'peerjs'*/
 };
 function generateUniqueID() {
   const length = 8;
@@ -150,11 +146,11 @@ function startHost() {
   const id = sessionStorage.getItem('id') || generateUniqueID();
   localStorage.setItem('id', id);
   /*var peer = new Peer(id, {
-          secure: true,
-          host: 'videodesk-ennesimo.herokuapp.com',
-          port: 443,
-          path: '/'
-        }); // un peer puo' connettersi usando questo id*/
+            secure: true,
+            host: 'videodesk-ennesimo.herokuapp.com',
+            port: 443,
+            path: '/'
+          }); // un peer puo' connettersi usando questo id*/
   const peer = new Peer(id, peerConfig);
   // imposta i parametri per gli eventi tra i peer 
   peer.on('errore', function (err) {
@@ -191,20 +187,13 @@ function startHost() {
         mediaConnection.answer(mediaStream);
         // chiudi 
         mediaConnection.on("close", function () {
-          console.log("Il guest ha lasciato la chiamata");
+          console.log("Il guest " + mediaConnection.peer + " ha lasciato la chiamata");
           console.log("decrementa il numero di ospiti");
-          var variabile = peerList.length;
-          contatore = contatore - 1;
-          if (contatore < variabile) {
-            peerList.pop();
-            console.log("connessioni " + peerList.length);
-            console.log("Chiamata chiusa");
-            videoElement.remove();
-          }
-          
+          peerList.pop();
+          console.log("connessioni " + peerList.length);
+          const videoElementUscente = document.getElementById("_" + mediaConnection.peer);
+          videoElementUscente.remove();
         });
-        
-        
         let callEsiste = false;
         // Quando il GUEST si connette aggiungi il suo stream
         mediaConnection.on('stream', function (guestStream) {
@@ -221,7 +210,6 @@ function startHost() {
           function (err) {
             console.log("Stream del guest fallito ", err);
           });
-        
       },
         function (err) {
           console.log("chiamata con il guest fallita ", err);
@@ -240,16 +228,14 @@ function startGuest() {
   var guestId = generateUniqueID();
   console.log("Id del guest" + guestId);
   /*var peer = new Peer(guestId, {
-    secure: true,
-    host: 'videodesk-ennesimo.herokuapp.com',
-    port: 443,
-    path: '/'
-  });*/
-
+      secure: true,
+      host: 'videodesk-ennesimo.herokuapp.com',
+      port: 443,
+      path: '/'
+    });*/
   const peer = new Peer(guestId, peerConfig);
   // salvo l'oggetto peer nella mia sessione.
   sessionStorage.setItem('peer', peer);
-
   peer.on("error", function (err) {
     console.log("error in guest:", err);
   });
@@ -305,12 +291,10 @@ function startGuest() {
               const mediaConnection2 = peer.call(guestID, mediaStream);
               let callEsiste = false;
               mediaConnection2.on("stream", function (guestStream2) {
-
                 if (!callEsiste) {
                   callEsiste = true;
                   console.log("Host risponde alla chiamata");
                   videoElement = addWebCamView("GUEST AGGIUNTO", guestStream2, true, mediaConnection2.peer);
-
                 } else {
                   console.log("elimina i duplicati");
                 }
@@ -319,7 +303,6 @@ function startGuest() {
                   console.log("fallito", err);
                 }
               ); //mediaConnection2.on('stream')
-
             }
           }
           // verifico la presenza di altri Guest.
@@ -348,9 +331,7 @@ function startGuest() {
                 });
             }); // mediaConnection2.on(Guest1)
           }
-
         });// dataConnection.send
-
       });
       // creo la cannessione e rispondo al evento call lanciata dal GUEST2.
       peer.on('connection', function (dataConnection2) {
@@ -377,24 +358,20 @@ function startGuest() {
         mediaConnection2.on("close", function () {
           console.log("Un Guest ha abbandonato la call");
           console.log("decrementa il numero di ospiti");
-          var variabile = sessionStorage.getItem("idGuest");
-          videoElement.remove();
-         // console.log("Connessioni Totali  " + variabile.length);
+          const videoElementUscente = document.getElementById("_" + mediaConnection2.peer);
+          videoElementUscente.remove();
           /*contatore = contatore - 1;
-          if (contatore < confronto) {
-            //confronto.pop();
-            console.log("Connessioni Totali  " + confronto.length);
-            videoElement.remove();
-          }*/
-        }); 
+                    if (contatore < confronto) {
+                      //confronto.pop();
+                      console.log("Connessioni Totali  " + confronto.length);
+                      videoElement.remove();
+                    }*/
+        });
       }); // mediaConnection2.on
       // decremento il numero di guest che lasciano la chiamata
-      
     }); // startWebCam
   }); // peer.on('open') 
 }
-
-
 function main() {
   document.getElementById("urlbox").style.visibility = "visible";
   if (window.location.search !== "") {
