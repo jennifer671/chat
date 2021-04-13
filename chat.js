@@ -10,6 +10,7 @@
  has its own parameters for ping rates, but does not appear
  to use them at present on investigating the code.
 */
+
 const KEEP_ALIVE_INTERVAL_MS = 0.25 * 1000;
 const KEEP_ALIVE_MESSAGE = "KEEP_ALIVE";
 // How many intervals can be missed before we drop connection
