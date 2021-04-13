@@ -30,6 +30,7 @@ const peerConfig = {
           path: '/myapp',
           key: 'peerjs'*/
 };
+
 function generateUniqueID() {
   const length = 8;
   const prefix = "xc";
