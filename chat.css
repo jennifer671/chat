@@ -40,17 +40,17 @@ body {
     position: relative;
     text-align: center;
     background: #fff;
-    border-radius: 7px;
-    border: 5px solid #fff;
-    width: 23%;
-    margin: 2%;
+    border-radius: auto;
+    border: auto solid #fff;
+    width: 30%;
+    /*margin: auto;*/
 }
 
 .videoFrame video {
-    border-radius: 5px;
+    border-radius: auto;
     width: 100%;
-    margin-top: 2px;
-    margin-bottom: -2px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 #videobox {
@@ -79,6 +79,7 @@ div#welcome {
     text-align: center;
     top: 30%;
 }
+
 #footer_bar {
     width: 100%;
     /* posizionamento in fondo alla pagina */
@@ -95,6 +96,3 @@ div#welcome {
     margin-right: auto;
     
 }
-
-
-
