@@ -86,10 +86,10 @@ body {
 }
 
 div#welcome {
-    position: relative;
+    position: fixed;
     width: 100%;
     text-align: center;
-    top: 30%;
+    top: 37%;
 }
 #footer_bar {
     width: 100%;
