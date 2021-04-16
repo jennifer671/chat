@@ -1,9 +1,21 @@
 html, body { height: 100% }
 
+html {
+  height: 100% !important;
+  width:100%;
+  overflow-x: hidden !important;
+
+  overflow:scroll;
+  -webkit-overflow-scrolling: touch; 
+  -webkit-overflow-y: auto; /* added css prefix for safari */
+
+}
+
 body {
+  height: auto;
+  min-height: auto;
+  overflow: hidden;
   position: fixed;
-  overflow: scroll;
-  overscroll-behavior: contain;
   width: 100%;
   top: 0;
   margin: 0;
@@ -14,7 +26,7 @@ body {
     rgb(22, 26, 29) 53%,
     rgba(137, 220, 255, 1) 100%
   );
-  font-family: Arial;
+  font-family:  Arial, Helvetica, sans-serif;
   font-size: 15px;
 }
 
@@ -93,5 +105,4 @@ div#welcome {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    
 }
