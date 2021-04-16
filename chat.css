@@ -2,7 +2,7 @@ html, body { height: 100% }
 
 body {
   position: fixed;
-  overflow: hidden;
+  overflow: scroll;
   overscroll-behavior: contain;
   width: 100%;
   top: 0;
