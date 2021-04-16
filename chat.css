@@ -86,9 +86,13 @@ body {
 }
 
 div#welcome {
-    position: fixed;
+    position: relative;
     width: 100%;
     text-align: center;
+
+    left : 0;
+    right : 0;
+
     top: 37%;
 }
 #footer_bar {
