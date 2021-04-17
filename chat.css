@@ -19,15 +19,17 @@ body {
   width: 100%;
   top: 0;
   margin: 0;
-  background: rgb(17, 13, 1);
+ 
+  background: rgb(0, 0, 0);
   background: radial-gradient(
     circle,
     rgba(22, 0, 22, 0.322) 0%,
-    rgb(22, 26, 29) 53%,
-    rgba(137, 220, 255, 1) 100%
+    rgb(221, 227, 231) 53%,
+    rgb(1, 151, 216) 100%
   );
-  font-family:  Arial, Helvetica, sans-serif;
-  font-size: 15px;
+  font-family: Georgia;
+ 
+  font-size: 17px;
 }
 
 #urlbox {
@@ -37,6 +39,14 @@ body {
     text-align: center;
     line-height: 155%;
     visibility: hidden;
+}
+#box {
+    margin: auto;
+    background: #fff;
+    padding: 5px;
+    text-align: center;
+    line-height: 155%;
+    
 }
 
 #urlTextBox {
@@ -92,11 +102,12 @@ div#welcome {
     position: relative;
     width: 100%;
     text-align: center;
-
+    height: 100vh;
     left : 0;
     right : 0;
-
+  
     top: 37%;
+    
 }
 #footer_bar {
     width: 100%;
@@ -112,4 +123,5 @@ div#welcome {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+    visibility: hidden;
 }
