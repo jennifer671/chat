@@ -4,6 +4,7 @@
  Released into the public domain.
 */
 "use strict";
+
 /*
  There is no consistent way to detect a closed WebRTC
  connection, so we have to send keepalive messages. PeerJS
@@ -17,6 +18,7 @@ const MISSABLE_INTERVALS = 10;
 var remotePeerIdsGuest = []; // Array dei guest connessi.
 var peerList = []; // Array connessioni ricevute dal host. 
 var contatore = 0;
+
 function chiudi_finestra() {
   if (confirm("Vuoi chiudere la chiamata?")) {
     window.location.reload();
@@ -62,9 +64,11 @@ function addWebCamView(caption, mediaStream, playAudio, id) {
   console.log("addWebCamView for " + caption);
   const videobox = document.getElementById("videobox");
   const frame = document.createElement("div");
+  
   frame.className = "videoFrame";
   frame.id = "_" + id;
   frame.innerHTML = `<div style="width: 100%">${caption}</div><div class="warning">⚠</div>`;
+ 
   const video = document.createElement("video");
   video.setAttribute("autoplay", true);
   // video.setAttribute('controls', true);
@@ -141,6 +145,7 @@ function keepAlive(dataConnection) {
   ping(dataConnection);
 }
 function startHost() {
+  
   console.log("start Host");
   // genera l'id del Host
   const id = sessionStorage.getItem('id') || generateUniqueID();
@@ -151,6 +156,7 @@ function startHost() {
             port: 443,
             path: '/'
           }); // un peer puo' connettersi usando questo id*/
+          
   const peer = new Peer(id, peerConfig);
   // imposta i parametri per gli eventi tra i peer 
   peer.on('errore', function (err) {
@@ -163,6 +169,7 @@ function startHost() {
     const url = "https://jennifer671.github.io/chat?" + id;
     document.getElementById("urlbox"
     ).innerHTML = `Tu sei l' HOST. Un guest puo' connettersi a questo URL :<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
+    document.getElementById("box").innerHTML = `<button onclick="chiudi_finestra();return false;" >Chiudi Call</button> `;
     // visualizza il video del HOST
     startWebCam(function (mediaStream) {
       addWebCamView("TU : HOST", mediaStream, false, id);
