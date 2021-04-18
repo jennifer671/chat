@@ -169,7 +169,7 @@ function startHost() {
     const url = "https://jennifer671.github.io/chat?" + id;
     document.getElementById("urlbox"
     ).innerHTML = `Tu sei l' HOST. Un guest puo' connettersi a questo URL :<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
-    document.getElementById("box").innerHTML = `<button onclick="chiudi_finestra();return false;" >Chiudi Call</button> `;
+    document.getElementById("box").innerHTML = `<button onclick="chiudi_finestra();return false;" >☎️</button> `;
     // visualizza il video del HOST
     startWebCam(function (mediaStream) {
       addWebCamView("TU : HOST", mediaStream, false, id);
@@ -239,6 +239,7 @@ function startGuest() {
   document.getElementById(
     "urlbox"
   ).innerHTML = `Tu sei il GUEST nella stanza ${hostID}. Un altro guest puo' connettersi a questo URL:<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
+  document.getElementById("box").innerHTML = `<button onclick="chiudi_finestra();return false; >Chiudi Call</button> `;
   var guestId = generateUniqueID();
   console.log("Id del guest" + guestId);
   /*var peer = new Peer(guestId, {
