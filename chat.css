@@ -19,15 +19,8 @@ body {
   width: 100%;
   top: 0;
   margin: 0;
- 
-  background: rgb(0, 0, 0);
-  background: radial-gradient(
-    circle,
-    rgba(22, 0, 22, 0.322) 0%,
-    rgb(221, 227, 231) 53%,
-    rgb(1, 151, 216) 100%
-  );
-  font-family: Georgia;
+background: rgb(255,255,255);
+background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(2,56,173,1) 100%);
  
   font-size: 17px;
 }
@@ -46,6 +39,9 @@ body {
     padding: 5px;
     text-align: center;
     line-height: 155%;
+    bottom : 0;
+    position : fixed;
+    width: 100vw;
     
 }
 
@@ -109,19 +105,4 @@ div#welcome {
     top: 37%;
     
 }
-#footer_bar {
-    width: 100%;
-    /* posizionamento in fondo alla pagina */
-    position: fixed;
-    bottom: 0;
-    left : 0;
-    right : 0;
-    height: 50px;
-    border-top: 1px;
-    overflow: hidden;
-    display: table;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    visibility: hidden;
-}
+
