@@ -420,6 +420,19 @@ function startGuest() {
             console.log("Stream del guest fallito ", err);
           });
         mediaConnection2.on("close", function () {
+          var idGuestUscente = mediaConnection2.peer;
+          console.log("Il guest " + idGuestUscente + " ha lasciato la chiamata");
+          console.log("connessioni " + peerList.length);
+          const videoElementUscente = document.getElementById("_" + mediaConnection2.peer);
+          videoElementUscente.remove();
+          var indice = remotePeerIdsGuest.indexOf(mediaConnection2.peer);
+          if (indice > -1) {
+            remotePeerIdsGuest.splice(indice, 1);
+          }
+          console.log("eliminato");
+          console.log("id del Guest presenti nella call. " + remotePeerIdsGuest);
+        });
+        /*mediaConnection2.on("close", function () {
           console.log("Un Guest ha abbandonato la call");
           console.log("decrementa il numero di ospiti");
           const videoElementUscente = document.getElementById("_" + mediaConnection2.peer);
@@ -430,13 +443,8 @@ function startGuest() {
             array.splice(indice, 1);
           }
           sessionStorage.setItem("idGuest", array);
-          /*contatore = contatore - 1;
-                    if (contatore < confronto) {
-                      //confronto.pop();
-                      console.log("Connessioni Totali  " + confronto.length);
-                      videoElement.remove();
-                    }*/
-        });
+          
+        });*/
       }); // mediaConnection2.on
       // decremento il numero di guest che lasciano la chiamata
     }); // startWebCam
