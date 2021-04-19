@@ -54,8 +54,8 @@ function muteVideo() {
         navigator.mediaDevices.getUserMedia({
           video: {
            
-            /*width: 0,
-            height: 0*/
+            width: 0,
+            height: 0
           }
         });
         flagVideo = false; 
