@@ -21,7 +21,7 @@ body {
   margin: 0;
 background: rgb(255,255,255);
 background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(2,56,173,1) 100%);
- 
+ font-family: Tahoma;
   font-size: 17px;
 }
 
@@ -33,7 +33,7 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(2,56,173,1) 100%)
     line-height: 155%;
     visibility: hidden;
 }
-#box {
+#box1 {
     margin: auto;
     background: #fff;
     padding: 5px;
@@ -44,6 +44,7 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(2,56,173,1) 100%)
     width: 100vw;
     
 }
+
 
 #urlTextBox {
     width: 400px;
@@ -74,7 +75,7 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(2,56,173,1) 100%)
 
 #videobox {
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Tahoma;
     
 }
 
