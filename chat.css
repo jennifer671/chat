@@ -12,7 +12,7 @@ html {
 }
 
 body {
- /* height: auto;*/
+  /*height: auto;*/
   min-height: auto;
   overflow: hidden;
   position: relative;
@@ -32,6 +32,7 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(2,56,173,1) 100%)
     text-align: center;
     line-height: 155%;
     visibility: hidden;
+    font-family: Tahoma;
 }
 #box1 {
     margin: auto;
@@ -42,6 +43,7 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(2,56,173,1) 100%)
     bottom : 0;
     position : fixed;
     width: 100vw;
+    font-family: Tahoma;
     
 }
 
@@ -51,6 +53,7 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(2,56,173,1) 100%)
     cursor: pointer;
     border: none;
     font-weight: bold;
+    font-family: Tahoma;
 }
 
 
@@ -60,16 +63,16 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(2,56,173,1) 100%)
     text-align: center;
     background: #fff;
     border-radius: 2%;
-    border: 2% solid #fff;
+    border: 10% solid #fff;
     width: 20%;
     margin: 2%;
 }
 
 .videoFrame video {
-    border-radius: 2%;
+    border-radius: 0%;
     width: 100%;
-    margin-top: 2%;
-    margin-bottom: -2%;
+    margin-top: 0%;
+    margin-bottom: -10%;
     
 }
 
@@ -102,7 +105,7 @@ div#welcome {
     height: 100vh;
     left : 0;
     right : 0;
-  
+    font-family: Tahoma;
     top: 37%;
     
 }
