@@ -18,7 +18,7 @@ var peerList = []; // Array connessioni ricevute dal host.
 var contatore = 0;
 let flagAudio = true;
 let flagVideo = true;
-
+ 
 function chiudi_finestra() {
   if (confirm("Vuoi chiudere la chiamata?")) {
     window.location.reload();
@@ -53,7 +53,6 @@ function muteVideo() {
     if (confirm("Vuoi disattivare il video?")) {
         navigator.mediaDevices.getUserMedia({
           video: {
-           
             width: 0,
             height: 0
           }
@@ -71,8 +70,9 @@ function muteVideo() {
         flagVideo = true;
       }
   }
-}
+  
 
+}
 const peerConfig = {
   debug: 1
   /*host: 'localhost',
@@ -221,7 +221,7 @@ function startHost() {
 
     // visualizza il video del HOST
     startWebCam(function (mediaStream) {
-      addWebCamView("TU : HOST", mediaStream, false, id);
+      addWebCamView("HOST", mediaStream, false, id);
       let videoElement = undefined;
       //Emesso quando viene stabilita una nuova connessione dati da un peer remoto 
       // CONNETTI
@@ -240,7 +240,6 @@ function startHost() {
       peer.on('call', function (mediaConnection) {
         console.log("GUEST chiamato");
         // rispondo alla call fornendo lo stram dell'HOST
-        
         mediaConnection.answer(mediaStream);
         // chiudi 
         mediaConnection.on("close", function () {
@@ -289,7 +288,7 @@ function startGuest() {
   document.getElementById(
     "urlbox"
   ).innerHTML = `Tu sei il GUEST nella stanza ${hostID}. Un altro guest puo' connettersi a questo URL:<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
-  document.getElementById("box1").innerHTML = `<button onclick="chiudi_finestra();return false;" > Chiudi Chiamata 📞</button><a href="#"><button onclick= "muteAudio();" >On/Off Audio 🔊</button><button onclick= "muteVideo();" >On/Off Video 📷</button></a>`;
+  document.getElementById("box").innerHTML = `<button onclick="chiudi_finestra();return false; >Chiudi Call</button> `;
   var guestId = generateUniqueID();
   console.log("Id del guest" + guestId);
   /*var peer = new Peer(guestId, {
@@ -329,6 +328,18 @@ function startGuest() {
           console.log("host stream failed with", err);
         }
       ); //mediaConnection.on('stream')
+      mediaConnection.on("close", function () {
+        var idGuestUscente1 = mediaConnection.peer;
+        console.log("Il guest " + idGuestUscente1 + " ha lasciato la chiamata");
+        const videoElementUscente = document.getElementById("_" + mediaConnection.peer);
+        videoElementUscente.remove();
+        var indice = remotePeerIdsGuest.indexOf(mediaConnection.peer);
+        if (indice > -1) {
+          remotePeerIdsGuest.splice(indice, 1);
+        }
+        console.log("eliminato");
+        console.log("id del Guest presenti nella call. " + remotePeerIdsGuest);
+      });
       const dataConnection = peer.connect(hostID);
       dataConnection.on("open", function () {
         console.log("connessione dati con L'HOST stabilita");
@@ -359,7 +370,7 @@ function startGuest() {
                 if (!callEsiste) {
                   callEsiste = true;
                   console.log("Host risponde alla chiamata");
-                  videoElement = addWebCamView("GUEST ", guestStream2, true, mediaConnection2.peer);
+                  videoElement = addWebCamView("GUEST", guestStream2, true, mediaConnection2.peer);
                 } else {
                   console.log("elimina i duplicati");
                 }
@@ -420,9 +431,9 @@ function startGuest() {
           function (err) {
             console.log("Stream del guest fallito ", err);
           });
-         mediaConnection2.on("close", function () {
-          var idGuestUscente = mediaConnection2.peer;
-          console.log("Il guest " + idGuestUscente + " ha lasciato la chiamata");
+        mediaConnection2.on("close", function () {
+          var idGuestUscente2 = mediaConnection2.peer;
+          console.log("Il guest " + idGuestUscente2 + " ha lasciato la chiamata");
           const videoElementUscente = document.getElementById("_" + mediaConnection2.peer);
           videoElementUscente.remove();
           var indice = remotePeerIdsGuest.indexOf(mediaConnection2.peer);
@@ -432,19 +443,6 @@ function startGuest() {
           console.log("eliminato");
           console.log("id del Guest presenti nella call. " + remotePeerIdsGuest);
         });
-        /*mediaConnection2.on("close", function () {
-          console.log("Un Guest ha abbandonato la call");
-          console.log("decrementa il numero di ospiti");
-          const videoElementUscente = document.getElementById("_" + mediaConnection2.peer);
-          videoElementUscente.remove();
-          var array = sessionStorage.getItem("idGuest");
-          var indice = array.indexOf(mediaConnection2.peer);
-          if (indice > -1) {
-            array.splice(indice, 1);
-          }
-          sessionStorage.setItem("idGuest", array);
-          
-        });*/
       }); // mediaConnection2.on
       // decremento il numero di guest che lasciano la chiamata
     }); // startWebCam
