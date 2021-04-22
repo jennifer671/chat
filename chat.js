@@ -18,7 +18,7 @@ var peerList = []; // Array connessioni ricevute dal host.
 var contatore = 0;
 let flagAudio = true;
 let flagVideo = true;
-let videoElementUscenteG = undefined;
+
 function chiudi_finestra() {
   if (confirm("Vuoi chiudere la chiamata?")) {
     window.location.reload();
@@ -251,7 +251,6 @@ function startHost() {
           peerList.pop();
           console.log("connessioni " + peerList.length);
           const videoElementUscente = document.getElementById("_" + mediaConnection.peer);
-     
           videoElementUscente.remove();
           var indice = remotePeerIdsGuest.indexOf(mediaConnection.peer);
           if (indice > -1) {
@@ -384,7 +383,7 @@ function startGuest() {
               // rispondo alla call fornendo lo stram dell'Guest1
               mediaConnection2.answer(mediaStream);
               let callEsiste = false;
-              mediaConnection2.on('close', function () {
+              mediaConnection.on('close', function () {
                 console.log('guest left the call');
               });
               mediaConnection2.on('stream', function (guestStream) {
@@ -402,7 +401,6 @@ function startGuest() {
             }); // mediaConnection2.on(Guest1)
           }
         });// dataConnection.send
-        
       });
       // creo la cannessione e rispondo al evento call lanciata dal GUEST2.
       peer.on('connection', function (dataConnection2) {
@@ -426,12 +424,12 @@ function startGuest() {
           function (err) {
             console.log("Stream del guest fallito ", err);
           });
-        mediaConnection.on("close", function () {
-          var idGuestUscente = mediaConnection.peer;
+        mediaConnection2.on("close", function () {
+          var idGuestUscente = mediaConnection2.peer;
           console.log("Il guest " + idGuestUscente + " ha lasciato la chiamata");
-          const videoElementUscente = document.getElementById("_" + mediaConnection.peer);
+          const videoElementUscente = document.getElementById("_" + mediaConnection2.peer);
           videoElementUscente.remove();
-          var indice = remotePeerIdsGuest.indexOf(mediaConnection.peer);
+          var indice = remotePeerIdsGuest.indexOf(mediaConnection2.peer);
           if (indice > -1) {
             remotePeerIdsGuest.splice(indice, 1);
           }
