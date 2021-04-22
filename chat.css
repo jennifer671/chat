@@ -8,10 +8,11 @@ html {
   overflow:scroll;
   -webkit-overflow-scrolling: touch; 
   -webkit-overflow-y: auto; /* added css prefix for safari */
+
 }
 
 body {
-  /*height: auto;*/
+  height: auto; 
   min-height: auto;
   overflow: hidden;
   position: relative;
@@ -31,7 +32,6 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(2,56,173,1) 100%)
     text-align: center;
     line-height: 155%;
     visibility: hidden;
-    font-family: Tahoma;
 }
 #box1 {
     margin: auto;
@@ -42,7 +42,12 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(2,56,173,1) 100%)
     bottom : 0;
     position : fixed;
     width: 100vw;
-    font-family: Tahoma;
+    
+}
+#box2 {
+    background: rgb(7, 7, 7);
+    opacity: 10;
+    
     
 }
 
@@ -52,7 +57,6 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(2,56,173,1) 100%)
     cursor: pointer;
     border: none;
     font-weight: bold;
-    font-family: Tahoma;
 }
 
 
@@ -62,22 +66,23 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(2,56,173,1) 100%)
     text-align: center;
     background: #fff;
     border-radius: 2%;
-    border: 10% solid #fff;
+    border: 2% solid #fff;
     width: 20%;
     margin: 2%;
+    
 }
 
 .videoFrame video {
-    border-radius: 0%;
+    border-radius: 2%;
     width: 100%;
-    margin-top: 0%;
-    margin-bottom: -10%;
+    margin-top: 2%;
+    margin-bottom: -2%;
     
 }
 
 #videobox {
     text-align: center;
-    font-family: Tahoma;
+    font-family: Arial, Helvetica, sans-serif;
     
 }
 
@@ -104,7 +109,6 @@ div#welcome {
     height: 100vh;
     left : 0;
     right : 0;
-    font-family: Tahoma;
     top: 37%;
     
 }
