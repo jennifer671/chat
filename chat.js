@@ -18,7 +18,7 @@ var peerList = []; // Array connessioni ricevute dal host.
 var contatore = 0;
 let flagAudio = true;
 let flagVideo = true;
-
+let videoElementUscenteG = undefined;
 function chiudi_finestra() {
   if (confirm("Vuoi chiudere la chiamata?")) {
     window.location.reload();
@@ -49,29 +49,29 @@ function muteAudio() {
 }
 
 function muteVideo() {
-  if(flagVideo === true) {
+  if (flagVideo === true) {
     if (confirm("Vuoi disattivare il video?")) {
-        navigator.mediaDevices.getUserMedia({
-          video: {
-            width: -512,
-            height: -512,
-          }
-        });
-     
-        flagVideo = false; 
-      } 
-    } else {
-      if (confirm("Vuoi attivare il video?")) {
-        navigator.mediaDevices.getUserMedia({
-          video: {
-            width: 512,
-            height: 512
-          }
-        });
-        flagVideo = true;
-      } 
+      navigator.mediaDevices.getUserMedia({
+        video: {
+          width: -512,
+          height: -512,
+        }
+      });
+
+      flagVideo = false;
+    }
+  } else {
+    if (confirm("Vuoi attivare il video?")) {
+      navigator.mediaDevices.getUserMedia({
+        video: {
+          width: 512,
+          height: 512
+        }
+      });
+      flagVideo = true;
+    }
   }
-  
+
 
 }
 const peerConfig = {
@@ -235,6 +235,9 @@ function startHost() {
         dataConnection.on('open', function () {
           dataConnection.send(remotePeerIdsGuest);
         });// dataConnection.on
+        dataConnection.on('open', function () {
+          dataConnection.send(videoElementUscenteG);
+        });// dataConnection.on
       }); // peer.on(connection)
       //Emesso quando un peer remoto tenta di chiamarti. L'emissione mediaConnection non è ancora attiva; devi prima rispondere alla chiamata
       // CHIAMA
@@ -250,6 +253,7 @@ function startHost() {
           peerList.pop();
           console.log("connessioni " + peerList.length);
           const videoElementUscente = document.getElementById("_" + mediaConnection.peer);
+          videoElementUscenteG = videoElementUscente;
           videoElementUscente.remove();
           var indice = remotePeerIdsGuest.indexOf(mediaConnection.peer);
           if (indice > -1) {
@@ -320,7 +324,7 @@ function startGuest() {
           alreadyAddedThisCall = true;
           console.log("Host risponde alla chiamata");
           videoElement = addWebCamView("HOST", hostStream, true, mediaConnection.peer);
-          console.log("id del Host connesso " + videoElement.id.slice(1, 11)); 
+          console.log("id del Host connesso " + videoElement.id.slice(1, 11));
         } else {
           console.log("elimina i duplicati");
         }
@@ -400,6 +404,12 @@ function startGuest() {
             }); // mediaConnection2.on(Guest1)
           }
         });// dataConnection.send
+        dataConnection.on('data', function (data) {
+          console.log("ricevi " + data);
+          var VideoElimina = data;
+          VideoElimina.remove();
+          console.log("eliminato!");
+        });
       });
       // creo la cannessione e rispondo al evento call lanciata dal GUEST2.
       peer.on('connection', function (dataConnection2) {
@@ -433,7 +443,7 @@ function startGuest() {
             remotePeerIdsGuest.splice(indice, 1);
           }
           console.log("eliminato");
-          
+
         });
       }); // mediaConnection2.on
       // decremento il numero di guest che lasciano la chiamata
