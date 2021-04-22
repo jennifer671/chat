@@ -426,12 +426,12 @@ function startGuest() {
           function (err) {
             console.log("Stream del guest fallito ", err);
           });
-        mediaConnection2.on("close", function () {
+        mediaConnection.on("close", function () {
           var idGuestUscente = mediaConnection.peer;
           console.log("Il guest " + idGuestUscente + " ha lasciato la chiamata");
-          const videoElementUscente = document.getElementById("_" + mediaConnection2.peer);
+          const videoElementUscente = document.getElementById("_" + mediaConnection.peer);
           videoElementUscente.remove();
-          var indice = remotePeerIdsGuest.indexOf(mediaConnection2.peer);
+          var indice = remotePeerIdsGuest.indexOf(mediaConnection.peer);
           if (indice > -1) {
             remotePeerIdsGuest.splice(indice, 1);
           }
