@@ -411,7 +411,7 @@ function startGuest() {
       // creo la cannessione e rispondo al evento call lanciata dal GUEST2.
       peer.on('connection', function (dataConnection2) {
         console.log(" connessione dati con il GUEST2 stabilita ");
-        //keepAlive(dataConnection2);
+        keepAlive(dataConnection2);
       });
       peer.on('call', function (mediaConnection2) {
         console.log("GUEST2 chiamato");
