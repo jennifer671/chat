@@ -49,29 +49,29 @@ function muteAudio() {
 }
 
 function muteVideo() {
-  if (flagVideo === true) {
+  if(flagVideo === true) {
     if (confirm("Vuoi disattivare il video?")) {
-      navigator.mediaDevices.getUserMedia({
-        video: {
-          width: -512,
-          height: -512,
-        }
-      });
-
-      flagVideo = false;
-    }
-  } else {
-    if (confirm("Vuoi attivare il video?")) {
-      navigator.mediaDevices.getUserMedia({
-        video: {
-          width: 512,
-          height: 512
-        }
-      });
-      flagVideo = true;
-    }
+        navigator.mediaDevices.getUserMedia({
+          video: {
+            width: -512,
+            height: -512,
+          }
+        });
+     
+        flagVideo = false; 
+      } 
+    } else {
+      if (confirm("Vuoi attivare il video?")) {
+        navigator.mediaDevices.getUserMedia({
+          video: {
+            width: 512,
+            height: 512
+          }
+        });
+        flagVideo = true;
+      } 
   }
-
+  
 
 }
 const peerConfig = {
@@ -320,7 +320,7 @@ function startGuest() {
           alreadyAddedThisCall = true;
           console.log("Host risponde alla chiamata");
           videoElement = addWebCamView("HOST", hostStream, true, mediaConnection.peer);
-          console.log("id del Host connesso " + videoElement.id.slice(1, 11));
+          console.log("id del Host connesso " + videoElement.id.slice(1, 11)); 
         } else {
           console.log("elimina i duplicati");
         }
@@ -340,7 +340,6 @@ function startGuest() {
             var conta = i + 1;
             console.log("id del Guest n." + conta + ": ", idDeiGuest[i]);
           }
-          
           //salvo gli id dei guest nella memoria locale.
           sessionStorage.setItem('idGuest', idDeiGuest);
           for (var i = 0; i < idDeiGuest.length; i++) {
@@ -352,9 +351,7 @@ function startGuest() {
               const dataConnection2 = peer.connect(guestID);
               dataConnection2.on("open", function () {
                 console.log("Altra connessione stabilita");
-                dataConnection2.send(idDeiGuest);
               });
-              
               // crea l'evento call gestito dal Guest2.
               const mediaConnection2 = peer.call(guestID, mediaStream);
               let callEsiste = false;
@@ -385,7 +382,7 @@ function startGuest() {
               // rispondo alla call fornendo lo stram dell'Guest1
               mediaConnection2.answer(mediaStream);
               let callEsiste = false;
-              mediaConnection.on('close', function () {
+              mediaConnection2.on('close', function () {
                 console.log('guest left the call');
               });
               mediaConnection2.on('stream', function (guestStream) {
@@ -403,13 +400,6 @@ function startGuest() {
             }); // mediaConnection2.on(Guest1)
           }
         });// dataConnection.send
-        dataConnection.on('data2', function (data2) {
-          var idDeiGuest = data2;
-          for (var i = 0; i < idDeiGuest.length; i++) {
-            var conta = i + 1;
-            console.log("id del Guest n." + conta + ": ", idDeiGuest[i]);
-          }
-        });
       });
       // creo la cannessione e rispondo al evento call lanciata dal GUEST2.
       peer.on('connection', function (dataConnection2) {
@@ -434,7 +424,7 @@ function startGuest() {
             console.log("Stream del guest fallito ", err);
           });
         mediaConnection2.on("close", function () {
-          var idGuestUscente = mediaConnection2.peer;
+          var idGuestUscente = mediaConnection.peer;
           console.log("Il guest " + idGuestUscente + " ha lasciato la chiamata");
           const videoElementUscente = document.getElementById("_" + mediaConnection2.peer);
           videoElementUscente.remove();
@@ -443,20 +433,13 @@ function startGuest() {
             remotePeerIdsGuest.splice(indice, 1);
           }
           console.log("eliminato");
+          
         });
       }); // mediaConnection2.on
       // decremento il numero di guest che lasciano la chiamata
     }); // startWebCam
   }); // peer.on('open') 
 }
-
-function aggiornaGuest() {
-  var idDeiGuest = sessionStorage.getItem('idGuest');
-  for(var i = 0; i < idDeiGuest.length; i++) {
-
-  }
-}
-
 function main() {
   document.getElementById("urlbox").style.visibility = "visible";
   if (window.location.search !== "") {
