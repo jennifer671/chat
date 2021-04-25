@@ -165,7 +165,7 @@ function keepAlive(dataConnection) {
       // and destroy all resources
     } else {
       // console.log('sent KEEP_ALIVE message');
-      dataConnection.send(KEEP_ALIVE_MESSAGE);
+      //dataConnection.send(KEEP_ALIVE_MESSAGE);
       // Show or hide the connection warning as appropriate. Note that the element might not exist
       // right at the beginning of the connection.
       const connectionIsBad =
@@ -228,7 +228,7 @@ function startHost() {
       // CONNETTI
       peer.on('connection', function (dataConnection) {
         console.log(" connessione dati con il GUEST stabilita ");
-        //keepAlive(dataConnection);
+        keepAlive(dataConnection);
         peerList.push(dataConnection.peer);
         console.log(" Connessioni con L'HOST " + peerList.length);
         //L'Host invia al guest una stringa contenente tutti gli id dei Guest che si connessi.
@@ -332,7 +332,7 @@ function startGuest() {
       const dataConnection = peer.connect(hostID);
       dataConnection.on("open", function () {
         console.log("connessione dati con L'HOST stabilita");
-        //keepAlive(dataConnection);
+        keepAlive(dataConnection);
         //ricevi id dei guest dal Host.
         dataConnection.on('data', function (data) {
           var idDeiGuest = data;
