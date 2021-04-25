@@ -2,6 +2,7 @@
  From https://github.com/morgan3d/misc/
  Created by Morgan McGuire in 2020 R  eleased into the public domain.*/
 'use strict';
+
 /*
  There is no consistent way to detect a closed WebRTC
  connection, so we have to send keepalive messages. PeerJS
@@ -234,7 +235,6 @@ function startHost() {
         dataConnection.on('open', function () {
           dataConnection.send(remotePeerIdsGuest);
         });// dataConnection.on
-        
       }); // peer.on(connection)
       //Emesso quando un peer remoto tenta di chiamarti. L'emissione mediaConnection non è ancora attiva; devi prima rispondere alla chiamata
       // CHIAMA
@@ -340,6 +340,7 @@ function startGuest() {
             var conta = i + 1;
             console.log("id del Guest n." + conta + ": ", idDeiGuest[i]);
           }
+          
           //salvo gli id dei guest nella memoria locale.
           sessionStorage.setItem('idGuest', idDeiGuest);
           for (var i = 0; i < idDeiGuest.length; i++) {
@@ -351,7 +352,9 @@ function startGuest() {
               const dataConnection2 = peer.connect(guestID);
               dataConnection2.on("open", function () {
                 console.log("Altra connessione stabilita");
+                dataConnection2.send(idDeiGuest);
               });
+              
               // crea l'evento call gestito dal Guest2.
               const mediaConnection2 = peer.call(guestID, mediaStream);
               let callEsiste = false;
@@ -400,6 +403,13 @@ function startGuest() {
             }); // mediaConnection2.on(Guest1)
           }
         });// dataConnection.send
+        dataConnection.on('data2', function (data2) {
+          var idDeiGuest = data2;
+          for (var i = 0; i < idDeiGuest.length; i++) {
+            var conta = i + 1;
+            console.log("id del Guest n." + conta + ": ", idDeiGuest[i]);
+          }
+        });
       });
       // creo la cannessione e rispondo al evento call lanciata dal GUEST2.
       peer.on('connection', function (dataConnection2) {
@@ -433,13 +443,20 @@ function startGuest() {
             remotePeerIdsGuest.splice(indice, 1);
           }
           console.log("eliminato");
-
         });
       }); // mediaConnection2.on
       // decremento il numero di guest che lasciano la chiamata
     }); // startWebCam
   }); // peer.on('open') 
 }
+
+function aggiornaGuest() {
+  var idDeiGuest = sessionStorage.getItem('idGuest');
+  for(var i = 0; i < idDeiGuest.length; i++) {
+
+  }
+}
+
 function main() {
   document.getElementById("urlbox").style.visibility = "visible";
   if (window.location.search !== "") {
