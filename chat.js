@@ -21,7 +21,9 @@ let flagVideo = true;
 
 function chiudi_finestra() {
   if (confirm("Vuoi chiudere la chiamata?")) {
-    window.location.reload();
+    //window.location.reload();
+   
+    window.top.location = window.top.location;
     console.log("chiuso");
   }
 }
