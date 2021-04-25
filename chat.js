@@ -140,11 +140,17 @@ function clipboardCopy(text) {
    coming back. getVideo() is a callback because the video may not be available right
    when the data connection is. */
 function keepAlive(dataConnection) {
+  console.log("Sono nel keep alive");
   // Undefined until the first message comes in
   let lastTime = undefined;
   // Save the ID, which may become invalid if the connection fails
   const elementID = "_" + dataConnection.peer;
-  function ping() {
+  const videoElement = document.getElementById(elementID); 
+  if(videoElement === undefined) {
+    console.log("Sono nell'if");
+    videoElement.remove();
+  }
+  /*function ping() {
     const currentTime = now();
     if (
       lastTime &&
@@ -180,6 +186,7 @@ function keepAlive(dataConnection) {
       // Schedule the next ping
       setTimeout(ping, KEEP_ALIVE_INTERVAL_MS);
     }
+
   }
   // Do not put these in dataConnection.on or they can fail due to a race condition
   // with initialization and never run.
@@ -190,7 +197,8 @@ function keepAlive(dataConnection) {
     // console.log('received data', data);
   });
   // Start the endless keepAlive process
-  ping(dataConnection);
+  ping(dataConnection);*/
+  
 }
 function startHost() {
 
