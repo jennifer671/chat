@@ -2,7 +2,6 @@
  From https://github.com/morgan3d/misc/
  Created by Morgan McGuire in 2020 R  eleased into the public domain.*/
 'use strict';
-
 /*
  There is no consistent way to detect a closed WebRTC
  connection, so we have to send keepalive messages. PeerJS
