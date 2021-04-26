@@ -257,6 +257,7 @@ function startHost() {
           peerList.pop();
           console.log("connessioni " + peerList.length);
           const videoElementUscente = document.getElementById("_" + mediaConnection.peer);
+          videoElementUscente.parentNode.removeChild(videoElementUscente);
           videoElementUscente.remove();
           var indice = remotePeerIdsGuest.indexOf(mediaConnection.peer);
           if (indice > -1) {
