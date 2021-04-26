@@ -64,7 +64,7 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(2,56,173,1) 100%)
     display: inline-block;
     position: auto;
     text-align: center;
-    background: #fff;
+    /*background: #fff;*/
     border-radius: 2%;
     border: 2% solid #fff;
     width: 20%;
