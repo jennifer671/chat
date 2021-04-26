@@ -115,7 +115,7 @@ function addWebCamView(caption, mediaStream, playAudio, id) {
 
   frame.className = "videoFrame";
   frame.id = "_" + id;
-  frame.innerHTML = `<div style="width: 100%">${caption}</div><div class="warning">⚠</div>`;
+  //frame.innerHTML = `<div style="width: 100%">${caption}</div><div class="warning">⚠</div>`;
 
   const video = document.createElement("video");
   video.setAttribute("autoplay", true);
