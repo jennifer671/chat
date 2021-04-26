@@ -236,16 +236,12 @@ function startHost() {
       peer.on('connection', function (dataConnection) {
         console.log(" connessione dati con il GUEST stabilita ");
         //keepAlive(dataConnection);
-        peerList.push(dataConnection);
+        peerList.push(dataConnection.peer);
         console.log(" Connessioni con L'HOST " + peerList.length);
         //L'Host invia al guest una stringa contenente tutti gli id dei Guest che si connessi.
-        for(var i = 0; i < peerList.length; i++) {
-          dataConnection = peerList[i];
-          dataConnection.on('open', function () {
-            dataConnection.send(remotePeerIdsGuest);
-          });// dataConnection.on
-        }
-        
+        dataConnection.on('open', function () {
+          dataConnection.send(remotePeerIdsGuest);
+        });// dataConnection.on
       }); // peer.on(connection)
       //Emesso quando un peer remoto tenta di chiamarti. L'emissione mediaConnection non è ancora attiva; devi prima rispondere alla chiamata
       // CHIAMA
