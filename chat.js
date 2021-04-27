@@ -63,7 +63,6 @@ function muteVideo() {
   }
 }
 
-}
 const peerConfig = {
   debug: 1
   /*host: 'localhost',
