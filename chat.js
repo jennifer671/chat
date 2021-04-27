@@ -48,29 +48,20 @@ function muteAudio() {
 }
 
 function muteVideo() {
-  if(flagVideo === true) {
+  if (flagVideo === true) {
     if (confirm("Vuoi disattivare il video?")) {
-        navigator.mediaDevices.getUserMedia({
-          video: {
-            width: -512,
-            height: -512,
-          }
-        });
-     
-        flagVideo = false; 
-      } 
-    } else {
-      if (confirm("Vuoi attivare il video?")) {
-        navigator.mediaDevices.getUserMedia({
-          video: {
-            width: 512,
-            height: 512
-          }
-        });
-        flagVideo = true;
-      } 
+      const video = document.querySelector('video');
+      video.pause();
+      flagVideo = false;
+    }
+  } else {
+    if (confirm("Vuoi attivare il video?")) {
+      const video = document.querySelector('video');
+      video.play();
+      flagVideo = true;
+    }
   }
-  
+}
 
 }
 const peerConfig = {
