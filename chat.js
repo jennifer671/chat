@@ -51,14 +51,23 @@ function muteAudio() {
 function muteVideo() {
   if (flagVideo === true) {
     if (confirm("Vuoi disattivare il video?")) {
-      const video = document.querySelector('video');
-      video.pause();
+      /*const video = document.querySelector('video');
+      video.pause();*/
+      navigator.mediaDevices.getUserMedia({
+        video:{width: -512, height: -512, straming: true, facingMode: "user"}
+      });
+       
       flagVideo = false;
     }
   } else {
     if (confirm("Vuoi attivare il video?")) {
-      const video = document.querySelector('video');
-      video.play();
+      /*const video = document.querySelector('video');
+      video.play();*/
+
+      navigator.mediaDevices.getUserMedia({
+        video: { width: 512, height: 512, straming: false, facingMode: "user" }
+      });
+
       flagVideo = true;
     }
   }
