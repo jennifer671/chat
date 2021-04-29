@@ -54,9 +54,9 @@ function muteVideo() {
       /*const video = document.querySelector('video');
       video.pause();*/
       navigator.mediaDevices.getUserMedia({
-        video:{width: -512, height: -512, straming: true, facingMode: "user"}
+        video: { width: -512, height: -512 }
       });
-       
+
       flagVideo = false;
     }
   } else {
@@ -65,13 +65,14 @@ function muteVideo() {
       video.play();*/
 
       navigator.mediaDevices.getUserMedia({
-        video: { width: 512, height: 512, straming: false, facingMode: "user" }
+        video: { width: 512, height: 512}
       });
 
       flagVideo = true;
     }
   }
 }
+
 
 const peerConfig = {
   debug: 1
@@ -139,7 +140,7 @@ function clipboardCopy(text) {
 /* Perpetually send keep alive messages to this dataConnection, and listen for them
    coming back. getVideo() is a callback because the video may not be available right
    when the data connection is. */
-function keepAlive(dataConnection) {
+/*function keepAlive(dataConnection) {
   console.log("Sono nel keep alive");
   // Undefined until the first message comes in
   let lastTime = undefined;
@@ -150,7 +151,7 @@ function keepAlive(dataConnection) {
     console.log("Sono nell'if");
     videoElement.remove();
   }
-  /*function ping() {
+  function ping() {
     const currentTime = now();
     if (
       lastTime &&
@@ -197,9 +198,9 @@ function keepAlive(dataConnection) {
     // console.log('received data', data);
   });
   // Start the endless keepAlive process
-  ping(dataConnection);*/
+  ping(dataConnection);
   
-}
+}*/
 function startHost() {
 
   console.log("start Host");
