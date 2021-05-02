@@ -1,3 +1,4 @@
+
 /*
  From https://github.com/morgan3d/misc/
  Created by Morgan McGuire in 2020 R  eleased into the public domain.*/
@@ -52,27 +53,25 @@ function muteVideo() {
   if (flagVideo === true) {
     if (confirm("Vuoi disattivare il video?")) {
       /*const video = document.querySelector('video');
-      video.pause();*/
+      //video.pause();
+      video.hidden = true;*/
       navigator.mediaDevices.getUserMedia({
         video: { width: -512, height: -512 }
       });
-
       flagVideo = false;
     }
   } else {
     if (confirm("Vuoi attivare il video?")) {
       /*const video = document.querySelector('video');
-      video.play();*/
-
+      video.hidden = false;*/
       navigator.mediaDevices.getUserMedia({
-        video: { width: 512, height: 512}
+        video: { width: 512, height: 512 }
       });
 
       flagVideo = true;
     }
   }
 }
-
 
 const peerConfig = {
   debug: 1
@@ -146,8 +145,8 @@ function clipboardCopy(text) {
   let lastTime = undefined;
   // Save the ID, which may become invalid if the connection fails
   const elementID = "_" + dataConnection.peer;
-  const videoElement = document.getElementById(elementID); 
-  if(videoElement === undefined) {
+  const videoElement = document.getElementById(elementID);
+  if (videoElement === undefined) {
     console.log("Sono nell'if");
     videoElement.remove();
   }
@@ -187,7 +186,6 @@ function clipboardCopy(text) {
       // Schedule the next ping
       setTimeout(ping, KEEP_ALIVE_INTERVAL_MS);
     }
-
   }
   // Do not put these in dataConnection.on or they can fail due to a race condition
   // with initialization and never run.
@@ -199,10 +197,9 @@ function clipboardCopy(text) {
   });
   // Start the endless keepAlive process
   ping(dataConnection);
-  
+
 }*/
 function startHost() {
-
   console.log("start Host");
   // genera l'id del Host
   const id = sessionStorage.getItem('id') || generateUniqueID();
@@ -226,7 +223,7 @@ function startHost() {
     const url = "https://jennifer671.github.io/chat?" + id;
     document.getElementById("urlbox"
     ).innerHTML = `Tu sei l' HOST. Un guest puo' connettersi a questo URL :<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
-    document.getElementById("box1").innerHTML = `<button onclick="chiudi_finestra();return false;" > Chiudi Chiamata 📞</button><a href="#"><button onclick= "muteAudio();" >On/Off Audio 🔊</button><button onclick= "muteVideo();" >On/Off Video 📷</button></a>`;
+    document.getElementById("box1").innerHTML = `<button onclick="chiudi_finestra();return false;" > Chiudi Chiamata 📞</button><a href="#"><button onclick= "muteAudio();" >On/Off Audio 🔊</button><button onclick= "muteVideo();" >On/Off Video 🎥</button></a>`;
 
     // visualizza il video del HOST
     startWebCam(function (mediaStream) {
@@ -298,7 +295,7 @@ function startGuest() {
   document.getElementById(
     "urlbox"
   ).innerHTML = `Tu sei il GUEST nella stanza ${hostID}. Un altro guest puo' connettersi a questo URL:<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
-  document.getElementById("box1").innerHTML = `<button onclick="chiudi_finestra();return false;" > Chiudi Chiamata 📞</button><a href="#"><button onclick= "muteAudio();" >On/Off Audio 🔊</button><button onclick= "muteVideo();" >On/Off Video 📷</button></a>`;
+  document.getElementById("box1").innerHTML = `<button onclick="chiudi_finestra();return false;" > Chiudi Chiamata 📞</button><a href="#"><button onclick= "muteAudio();" >On/Off Audio 🔊</button><button onclick= "muteVideo();" >On/Off Video 🎥</button></a>`;
   var guestId = generateUniqueID();
   console.log("Id del guest" + guestId);
   /*var peer = new Peer(guestId, {
@@ -329,7 +326,7 @@ function startGuest() {
           alreadyAddedThisCall = true;
           console.log("Host risponde alla chiamata");
           videoElement = addWebCamView("HOST", hostStream, true, mediaConnection.peer);
-          console.log("id del Host connesso " + videoElement.id.slice(1, 11)); 
+          console.log("id del Host connesso " + videoElement.id.slice(1, 11));
         } else {
           console.log("elimina i duplicati");
         }
@@ -341,7 +338,7 @@ function startGuest() {
       const dataConnection = peer.connect(hostID);
       dataConnection.on("open", function () {
         console.log("connessione dati con L'HOST stabilita");
-        keepAlive(dataConnection);
+        //keepAlive(dataConnection);
         //ricevi id dei guest dal Host.
         dataConnection.on('data', function (data) {
           var idDeiGuest = data;
@@ -360,7 +357,7 @@ function startGuest() {
               const dataConnection2 = peer.connect(guestID);
               dataConnection2.on("open", function () {
                 console.log("Altra connessione stabilita");
-               keepAlive(dataConnection2);
+                keepAlive(dataConnection2);
               });
               // crea l'evento call gestito dal Guest2.
               const mediaConnection2 = peer.call(guestID, mediaStream);
@@ -385,7 +382,7 @@ function startGuest() {
             // creo la cannessione e rispondo al evento call lanciata dal GUEST2.
             peer.on('connection', function (dataConnection2) {
               console.log(" connessione dati con il GUEST2 stabilita ");
-              keepAlive(dataConnection2);
+              //keepAlive(dataConnection2);
             });
             peer.on('call', function (mediaConnection2) {
               console.log("GUEST2 chiamato");
@@ -414,7 +411,7 @@ function startGuest() {
       // creo la cannessione e rispondo al evento call lanciata dal GUEST2.
       peer.on('connection', function (dataConnection2) {
         console.log(" connessione dati con il GUEST2 stabilita ");
-        keepAlive(dataConnection2);
+        //keepAlive(dataConnection2);
       });
       peer.on('call', function (mediaConnection2) {
         console.log("GUEST2 chiamato");
@@ -443,7 +440,7 @@ function startGuest() {
             remotePeerIdsGuest.splice(indice, 1);
           }
           console.log("eliminato");
-          
+
         });
       }); // mediaConnection2.on
       // decremento il numero di guest che lasciano la chiamata
