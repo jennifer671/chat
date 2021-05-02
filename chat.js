@@ -119,6 +119,7 @@ function addWebCamView(caption, mediaStream, playAudio, id) {
 
   const video = document.createElement("video");
   video.setAttribute("autoplay", true);
+  video.setAttribute("playsinline", true);
   // video.setAttribute('controls', true);
   video.srcObject = mediaStream;
   video.muted = !playAudio;
