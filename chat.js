@@ -1,4 +1,5 @@
 
+
 /*
  From https://github.com/morgan3d/misc/
  Created by Morgan McGuire in 2020 R  eleased into the public domain.*/
@@ -55,19 +56,19 @@ function muteVideo() {
       /*const video = document.querySelector('video');
       //video.pause();
       video.hidden = true;*/
-      navigator.mediaDevices.getUserMedia({
-        video: { width: -512, height: -512 }
-      });
+      const video = document.querySelector('video');
+      const stream = video.srcObject;
+      const tracks = stream.getTracks();
+      tracks.forEach(function (track) {
+          track.stop();
+        });
+      
       flagVideo = false;
     }
   } else {
     if (confirm("Vuoi attivare il video?")) {
-      /*const video = document.querySelector('video');
-      video.hidden = false;*/
-      navigator.mediaDevices.getUserMedia({
-        video: { width: 512, height: 512 }
-      });
-
+      const video = document.querySelector('video');
+    
       flagVideo = true;
     }
   }
@@ -198,21 +199,20 @@ function clipboardCopy(text) {
   });
   // Start the endless keepAlive process
   ping(dataConnection);
-
 }*/
 function startHost() {
   console.log("start Host");
   // genera l'id del Host
   const id = sessionStorage.getItem('id') || generateUniqueID();
   localStorage.setItem('id', id);
-  /*var peer = new Peer(id, {
+ var peer = new Peer(id, {
             secure: true,
             host: 'videodesk-ennesimo.herokuapp.com',
             port: 443,
             path: '/'
-          }); // un peer puo' connettersi usando questo id*/
+          }); // un peer puo' connettersi usando questo id
 
-  const peer = new Peer(id, peerConfig);
+  //const peer = new Peer(id, peerConfig);
   // imposta i parametri per gli eventi tra i peer 
   peer.on('errore', function (err) {
     console.log("errore nel Host:", err);
@@ -256,7 +256,7 @@ function startHost() {
           peerList.pop();
           console.log("connessioni " + peerList.length);
           const videoElementUscente = document.getElementById("_" + mediaConnection.peer);
-          videoElementUscente.parentNode.removeChild(videoElementUscente);
+          
           videoElementUscente.remove();
           var indice = remotePeerIdsGuest.indexOf(mediaConnection.peer);
           if (indice > -1) {
