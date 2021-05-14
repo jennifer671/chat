@@ -205,14 +205,14 @@ function startHost() {
   // genera l'id del Host
   const id = sessionStorage.getItem('id') || generateUniqueID();
   localStorage.setItem('id', id);
- var peer = new Peer(id, {
+  /*var peer = new Peer(id, {
             secure: true,
             host: 'videodesk-ennesimo.herokuapp.com',
             port: 443,
             path: '/'
-          }); // un peer puo' connettersi usando questo id
+          }); // un peer puo' connettersi usando questo id*/
 
-  //const peer = new Peer(id, peerConfig);
+  const peer = new Peer(id, peerConfig);
   // imposta i parametri per gli eventi tra i peer 
   peer.on('errore', function (err) {
     console.log("errore nel Host:", err);
