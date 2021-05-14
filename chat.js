@@ -53,21 +53,12 @@ function muteAudio() {
 function muteVideo() {
   if (flagVideo === true) {
     if (confirm("Vuoi disattivare il video?")) {
-      /*const video = document.querySelector('video');
-      //video.pause();
-      video.hidden = true;*/
-      const video = document.querySelector('video');
-      const stream = video.srcObject;
-      const tracks = stream.getTracks();
-      tracks.forEach(function (track) {
-          track.stop();
-        });
       
-      flagVideo = false;
+      
     }
   } else {
     if (confirm("Vuoi attivare il video?")) {
-      const video = document.querySelector('video');
+      
     
       flagVideo = true;
     }
@@ -358,7 +349,7 @@ function startGuest() {
               const dataConnection2 = peer.connect(guestID);
               dataConnection2.on("open", function () {
                 console.log("Altra connessione stabilita");
-                keepAlive(dataConnection2);
+                
               });
               // crea l'evento call gestito dal Guest2.
               const mediaConnection2 = peer.call(guestID, mediaStream);
