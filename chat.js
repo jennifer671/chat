@@ -33,7 +33,7 @@ function muteAudio() {
     if (confirm("Vuoi disattivare l'audio?")) {
       navigator.mediaDevices.getUserMedia({
         audio: {
-          volume: 0.0
+          volume: false
         }
       });
       flagAudio = false;
@@ -42,7 +42,7 @@ function muteAudio() {
     if (confirm("Vuoi attivare l'audio?")) {
       navigator.mediaDevices.getUserMedia({
         audio: {
-          volume: 1.0
+          volume: true
         }
       });
       flagAudio = true;
@@ -51,19 +51,27 @@ function muteAudio() {
 }
 
 function muteVideo() {
-  if (flagVideo === true) {
+  if (flagAudio === true) {
     if (confirm("Vuoi disattivare il video?")) {
-      
-      
+      navigator.mediaDevices.getUserMedia({
+        video: {
+          width: 0, height: 0
+        }
+      });
+      flagAudio = false;
     }
   } else {
     if (confirm("Vuoi attivare il video?")) {
-      
-    
-      flagVideo = true;
+      navigator.mediaDevices.getUserMedia({
+        video: {
+          width: 512, height: 512
+        }
+      });
+      flagAudio = true;
     }
   }
 }
+
 
 const peerConfig = {
   debug: 1
