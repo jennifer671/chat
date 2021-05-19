@@ -1,5 +1,3 @@
-
-
 /*
  From https://github.com/morgan3d/misc/
  Created by Morgan McGuire in 2020 R  eleased into the public domain.*/
@@ -31,7 +29,7 @@ function chiudi_finestra() {
 function muteAudio() {
   if (flagAudio === true) {
     if (confirm("Vuoi disattivare l'audio?")) {
-      navigator.mediaDevices.getUserMedia({
+      navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia || navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia({
         audio: {
           volume: false
         }
@@ -40,7 +38,7 @@ function muteAudio() {
     }
   } else {
     if (confirm("Vuoi attivare l'audio?")) {
-      navigator.mediaDevices.getUserMedia({
+      navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia || navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia({
         audio: {
           volume: true
         }
@@ -255,7 +253,7 @@ function startHost() {
           peerList.pop();
           console.log("connessioni " + peerList.length);
           const videoElementUscente = document.getElementById("_" + mediaConnection.peer);
-          
+
           videoElementUscente.remove();
           var indice = remotePeerIdsGuest.indexOf(mediaConnection.peer);
           if (indice > -1) {
@@ -357,7 +355,7 @@ function startGuest() {
               const dataConnection2 = peer.connect(guestID);
               dataConnection2.on("open", function () {
                 console.log("Altra connessione stabilita");
-                
+
               });
               // crea l'evento call gestito dal Guest2.
               const mediaConnection2 = peer.call(guestID, mediaStream);
