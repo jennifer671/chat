@@ -31,7 +31,7 @@ function muteAudio() {
     if (confirm("Vuoi disattivare l'audio?")) {
       navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia || navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia({
         audio: {
-          volume: false
+          volume: 0.0
         }
       });
       flagAudio = false;
@@ -40,7 +40,7 @@ function muteAudio() {
     if (confirm("Vuoi attivare l'audio?")) {
       navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia || navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia({
         audio: {
-          volume: true
+          volume: 1.0
         }
       });
       flagAudio = true;
