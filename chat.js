@@ -51,7 +51,7 @@ function muteAudio() {
 function muteVideo() {
   if (flagAudio === true) {
     if (confirm("Vuoi disattivare il video?")) {
-      navigator.mediaDevices.getUserMedia({
+       navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia || navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia({
         video: {
           width: 0, height: 0
         }
@@ -60,7 +60,7 @@ function muteVideo() {
     }
   } else {
     if (confirm("Vuoi attivare il video?")) {
-      navigator.mediaDevices.getUserMedia({
+            navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia || navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia({
         video: {
           width: 512, height: 512
         }
