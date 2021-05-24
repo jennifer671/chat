@@ -29,7 +29,7 @@ function chiudi_finestra() {
 function muteAudio() {
   if (flagAudio === true) {
     if (confirm("Vuoi disattivare l'audio?")) {
-      navigator.mediaDevices.getUserMedia({
+      navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia({
         audio: {
           volume: 0.0
         }
@@ -38,7 +38,7 @@ function muteAudio() {
     }
   } else {
     if (confirm("Vuoi attivare l'audio?")) {
-      navigator.mediaDevices.getUserMedia({
+      navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia({
         audio: {
           volume: 1.0
         }
