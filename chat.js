@@ -20,16 +20,16 @@ let flagAudio = true;
 let flagVideo = true;
 
 function chiudi_finestra() {
-  if (confirm("Vuoi chiudere la chiamata?")) {
+ // if (confirm("Vuoi chiudere la chiamata?")) {
     window.location.reload();
     console.log("chiuso");
-  }
+  //}
 }
 
 function muteAudio() {
   if (flagAudio === true) {
     if (confirm("Vuoi disattivare l'audio?")) {
-      navigator.mediaDevices.getUserMedia({
+      navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia || navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia({
         audio: {
           volume: 0.0
         }
@@ -38,7 +38,7 @@ function muteAudio() {
     }
   } else {
     if (confirm("Vuoi attivare l'audio?")) {
-      navigator.mediaDevices.getUserMedia({
+      navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia || navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia({
         audio: {
           volume: 1.0
         }
@@ -51,7 +51,7 @@ function muteAudio() {
 function muteVideo() {
   if (flagAudio === true) {
     if (confirm("Vuoi disattivare il video?")) {
-       navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia || navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia({
+      navigator.mediaDevices.getUserMedia({
         video: {
           width: 0, height: 0
         }
@@ -60,7 +60,7 @@ function muteVideo() {
     }
   } else {
     if (confirm("Vuoi attivare il video?")) {
-            navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia || navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia({
+      navigator.mediaDevices.getUserMedia({
         video: {
           width: 512, height: 512
         }
@@ -207,7 +207,7 @@ function startHost() {
             host: 'videodesk-ennesimo.herokuapp.com',
             port: 443,
             path: '/'
-          }); // un peer puo' connettersi usando questo id*/
+          }); // un peer puo' connettersi usando questo id
 
   //const peer = new Peer(id, peerConfig);
   // imposta i parametri per gli eventi tra i peer 
@@ -221,7 +221,7 @@ function startHost() {
     const url = "https://jennifer671.github.io/chat?" + id;
     document.getElementById("urlbox"
     ).innerHTML = `Tu sei l' HOST. Un guest puo' connettersi a questo URL :<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
-    document.getElementById("box1").innerHTML = `<button onclick="chiudi_finestra();return false;" > Chiudi Chiamata 📞</button><a href="#"><button onclick= "muteAudio();" >On/Off Audio 🔊</button><button onclick= "muteVideo();" >On/Off Video 🎥</button></a>`;
+    document.getElementById("box1").innerHTML = `<button onclick="chiudi_finestra();return false;" > Chiudi Chiamata 📞</button> 	<!--<button onclick= "muteAudio();" >On/Off Audio 🔊</button><button onclick= "muteVideo();" >On/Off Video 🎥</button></a>-->`;
 
     // visualizza il video del HOST
     startWebCam(function (mediaStream) {
@@ -293,7 +293,7 @@ function startGuest() {
   document.getElementById(
     "urlbox"
   ).innerHTML = `Tu sei il GUEST nella stanza ${hostID}. Un altro guest puo' connettersi a questo URL:<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
-  document.getElementById("box1").innerHTML = `<button onclick="chiudi_finestra();return false;" > Chiudi Chiamata 📞</button><a href="#"><button onclick= "muteAudio();" >On/Off Audio 🔊</button><button onclick= "muteVideo();" >On/Off Video 🎥</button></a>`;
+  document.getElementById("box1").innerHTML = `<button onclick="chiudi_finestra();return false;" > Chiudi Chiamata 📞</button> 	<!--<button onclick= "muteAudio();" >On/Off Audio 🔊</button><button onclick= "muteVideo();" >On/Off Video 🎥</button></a>-->`;
   var guestId = generateUniqueID();
   console.log("Id del guest" + guestId);
   var peer = new Peer(guestId, {
