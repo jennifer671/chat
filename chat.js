@@ -221,7 +221,7 @@ function startHost() {
     const url = "https://jennifer671.github.io/chat?" + id;
     document.getElementById("urlbox"
     ).innerHTML = `Tu sei l' HOST. Un guest puo' connettersi a questo URL :<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
-    document.getElementById("box1").innerHTML = `<button onclick="chiudi_finestra();return false;" > Chiudi Chiamata 📞</button> <button onclick= "muteAudio();" >On/Off Audio 🔊</button> <!-- <button onclick= "muteVideo();" >On/Off Video 🎥</button></a>-->`;
+    document.getElementById("box1").innerHTML = `<button onclick="chiudi_finestra();return false;" > Chiudi Chiamata 📞</button> <!--<button onclick= "muteAudio();" >On/Off Audio 🔊</button>  <button onclick= "muteVideo();" >On/Off Video 🎥</button></a>-->`;
 
     // visualizza il video del HOST
     startWebCam(function (mediaStream) {
@@ -293,7 +293,7 @@ function startGuest() {
   document.getElementById(
     "urlbox"
   ).innerHTML = `Tu sei il GUEST nella stanza ${hostID}. Un altro guest puo' connettersi a questo URL:<br><span style="white-space:nowrap; cursor: pointer; font-weight: bold" onclick="clipboardCopy('${url}')" title="Copy to Clipboard"><input title="Copy to Clipboard" type="text" value="${url}" id="urlTextBox">&nbsp;<b style="font-size: 125%">⧉</b></span>`;
-  document.getElementById("box1").innerHTML = `<button onclick="chiudi_finestra();return false;" > Chiudi Chiamata 📞</button> 	<button onclick= "muteAudio();" >On/Off Audio 🔊</button> <!-- <button onclick= "muteVideo();" >On/Off Video 🎥</button></a>-->`;
+  document.getElementById("box1").innerHTML = `<button onclick="chiudi_finestra();return false;" > Chiudi Chiamata 📞</button> <!--	<button onclick= "muteAudio();" >On/Off Audio 🔊</button> <button onclick= "muteVideo();" >On/Off Video 🎥</button></a>-->`;
   var guestId = generateUniqueID();
   console.log("Id del guest" + guestId);
   var peer = new Peer(guestId, {
