@@ -202,14 +202,14 @@ function startHost() {
   // genera l'id del Host
   const id = sessionStorage.getItem('id') || generateUniqueID();
   localStorage.setItem('id', id);
-  /*var peer = new Peer(id, {
+  var peer = new Peer(id, {
             secure: true,
             host: 'videodesk-ennesimo.herokuapp.com',
             port: 443,
             path: '/'
           }); // un peer puo' connettersi usando questo id*/
 
-  const peer = new Peer(id, peerConfig);
+  //const peer = new Peer(id, peerConfig);
   // imposta i parametri per gli eventi tra i peer 
   peer.on('errore', function (err) {
     console.log("errore nel Host:", err);
@@ -296,13 +296,13 @@ function startGuest() {
   document.getElementById("box1").innerHTML = `<button onclick="chiudi_finestra();return false;" > Chiudi Chiamata 📞</button><a href="#"><button onclick= "muteAudio();" >On/Off Audio 🔊</button><button onclick= "muteVideo();" >On/Off Video 🎥</button></a>`;
   var guestId = generateUniqueID();
   console.log("Id del guest" + guestId);
-  /*var peer = new Peer(guestId, {
+  var peer = new Peer(guestId, {
       secure: true,
       host: 'videodesk-ennesimo.herokuapp.com',
       port: 443,
       path: '/'
-    });*/
-  const peer = new Peer(guestId, peerConfig);
+    });
+  //const peer = new Peer(guestId, peerConfig);
   // salvo l'oggetto peer nella mia sessione.
   sessionStorage.setItem('peer', peer);
   peer.on("error", function (err) {
